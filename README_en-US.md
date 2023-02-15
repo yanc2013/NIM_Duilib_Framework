@@ -31,6 +31,11 @@ git clone https://github.com/netease-im/NIM_Duilib_Framework
 
 Enter the `NIM_Duilib_Framework/examples` directory，Open `examples.sln` with Visual Studio 2013 Update 5 or higher ，press `F7` to compile all projects.
 
+For example：
+ - Microsoft Visual Studio Community 2022 (64 ビット) Version 17.4.4
+ - Windows 10 SDK (10.0.19041.0)
+ - MSVC v141- VS 2017 C++ x64/x86
+
 ## Documentation
 
  - [Getting Started](docs/GETTING-STARTED.md)
