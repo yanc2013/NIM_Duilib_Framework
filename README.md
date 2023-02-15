@@ -31,6 +31,11 @@ git clone https://github.com/netease-im/NIM_Duilib_Framework
 
 进入 `NIM_Duilib_Framework/examples` 目录，使用 Visual Studio 2013 Update 5 以上版本 IDE 打开 `examples.sln`，按下 F7 即可编译所有示例程序
 
+例如：
+ - Microsoft Visual Studio Community 2022 (64 ビット) Version 17.4.4
+ - Windows 10 SDK (10.0.19041.0)
+ - MSVC v141- VS 2017 C++ x64/x86
+
 ## 文档
 
  - [快速上手](docs/GETTING-STARTED.md)
