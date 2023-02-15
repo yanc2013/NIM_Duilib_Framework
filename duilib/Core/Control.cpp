@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+ï»¿#include "StdAfx.h"
 #include "shlwapi.h"
 #include "../Animation/AnimationPlayer.h"
 
@@ -370,7 +370,7 @@ void Control::SetUTF8ToolTipText(const std::string& strText)
 	StringHelper::MBCSToUnicode(strText, strOut, CP_UTF8);
 	if (strOut.empty()) {
 		m_sToolTipText = _T("");
-		Invalidate();//Îª¿ÕÔòÒ»ÂÉÖØË¢
+		Invalidate();//ä¸ºç©ºåˆ™ä¸€å¾‹é‡åˆ·
 		return ;
 	}
 
@@ -858,7 +858,7 @@ void Control::HandleMessage(EventArgs& msg)
 
 bool Control::HasHotState()
 {
-	// ÅÐ¶Ï±¾¿Ø¼þÊÇ·ñÓÐhot×´Ì¬
+	// åˆ¤æ–­æœ¬æŽ§ä»¶æ˜¯å¦æœ‰hotçŠ¶æ€
 	return m_colorMap.HasHotColor() || m_imageMap.HasHotImage();
 }
 
@@ -1309,7 +1309,7 @@ void Control::AlphaPaint(IRenderContext* pRender, const UiRect& rcPaint)
 				SetCacheDirty(true);
 			}
 
-			// IsCacheDirtyÓëm_bCacheDirtyÒâÒå²»Ò»Ñù
+			// IsCacheDirtyä¸Žm_bCacheDirtyæ„ä¹‰ä¸ä¸€æ ·
 			if (m_bCacheDirty) {
 				pCacheRender->Clear();
 				UiRect rcClip = { 0, 0, size.cx, size.cy };
@@ -1547,7 +1547,7 @@ void Control::GifPlay()
 		}
 		else
 		{
-			if (lPrePause == 0 || lPause == 0) {//0±íÊ¾GetCurrentInterval³ö´í
+			if (lPrePause == 0 || lPause == 0) {//0è¡¨ç¤ºGetCurrentIntervalå‡ºé”™
 				m_bkImage.SetPlaying(false);
 				m_gifWeakFlag.Cancel();
 				return;

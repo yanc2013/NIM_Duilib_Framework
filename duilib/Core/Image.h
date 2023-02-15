@@ -1,152 +1,152 @@
-#ifndef UI_CORE_IMAGEDECODE_H_
+Ôªø#ifndef UI_CORE_IMAGEDECODE_H_
 #define UI_CORE_IMAGEDECODE_H_
 
 #pragma once
 
 #include <GdiPlus.h>
 
-namespace ui 
+namespace ui
 {
 
-class UILIB_API ImageInfo
-{
-public:
-	ImageInfo();
-	~ImageInfo();
+	class UILIB_API ImageInfo
+	{
+	public:
+		ImageInfo();
+		~ImageInfo();
 
-	void SetAlpha(bool bAlphaChannel) {	m_bAlphaChannel = bAlphaChannel; }
-	bool IsAlpha() { return m_bAlphaChannel; }
-	bool IsCached()	{ return m_bCached; }
-	void SetCached(bool bCached) { m_bCached = bCached; }
+		void SetAlpha(bool bAlphaChannel) { m_bAlphaChannel = bAlphaChannel; }
+		bool IsAlpha() { return m_bAlphaChannel; }
+		bool IsCached() { return m_bCached; }
+		void SetCached(bool bCached) { m_bCached = bCached; }
 
-	void SetPropertyItem(Gdiplus::PropertyItem* pPropertyItem);
+		void SetPropertyItem(Gdiplus::PropertyItem* pPropertyItem);
 
-	void PushBackHBitmap(HBITMAP hBitmap);
-	HBITMAP GetHBitmap(int nIndex);
-	int GetFrameCount();
-	bool IsGif();
-	int GetInterval(int nIndex); //∫¡√ÎŒ™µ•Œª 
-	 
-	static std::unique_ptr<ImageInfo> LoadImage(const std::wstring& strImageFullPath);
-	static std::unique_ptr<ImageInfo> LoadImage(HGLOBAL hGlobal, const std::wstring& imageFullPath);
+		void PushBackHBitmap(HBITMAP hBitmap);
+		HBITMAP GetHBitmap(int nIndex);
+		int GetFrameCount();
+		bool IsGif();
+		int GetInterval(int nIndex); //ÊØ´Áßí‰∏∫Âçï‰Ωç 
 
-private:
-	static std::unique_ptr<ImageInfo> LoadImageByBitmap(std::unique_ptr<Gdiplus::Bitmap>& pGdiplusBitmap, const std::wstring& imageFullPath);
+		static std::unique_ptr<ImageInfo> LoadImage(const std::wstring& strImageFullPath);
+		static std::unique_ptr<ImageInfo> LoadImage(HGLOBAL hGlobal, const std::wstring& imageFullPath);
 
-public:
-	int nX;
-	int nY;
-	std::wstring sImageFullPath;
+	private:
+		static std::unique_ptr<ImageInfo> LoadImageByBitmap(std::unique_ptr<Gdiplus::Bitmap>& pGdiplusBitmap, const std::wstring& imageFullPath);
 
-private:
-	bool m_bAlphaChannel;
-	bool m_bCached;
-	std::unique_ptr<Gdiplus::PropertyItem> m_propertyItem;
-	std::vector<HBITMAP> m_vecBitmap;
-};
+	public:
+		int nX;
+		int nY;
+		std::wstring sImageFullPath;
 
-struct UILIB_API ImageAttribute
-{
-public:
-	ImageAttribute();
+	private:
+		bool m_bAlphaChannel;
+		bool m_bCached;
+		std::unique_ptr<Gdiplus::PropertyItem> m_propertyItem;
+		std::vector<HBITMAP> m_vecBitmap;
+	};
 
-	void Init();
-	void SetImageString(const std::wstring& strImageString);
-	static void ModifyAttribute(ImageAttribute& imageAttribute, const std::wstring& strImageString);
+	struct UILIB_API ImageAttribute
+	{
+	public:
+		ImageAttribute();
 
-	std::wstring simageString;
-	std::wstring sImageName;
-	UiRect rcDest;
-	UiRect rcSource;
-	UiRect rcCorner;
-	BYTE bFade;
-	bool bTiledX;
-	bool bTiledY;
-	int nPlayCount;//»Áπ˚ «GIFø…“‘÷∏∂®≤•∑≈¥Œ ˝ -1 £∫“ª÷±≤•∑≈£¨»± °÷µ°£
-};
+		void Init();
+		void SetImageString(const std::wstring& strImageString);
+		static void ModifyAttribute(ImageAttribute& imageAttribute, const std::wstring& strImageString);
 
-class UILIB_API Image
-{
-public:
-	Image();
+		std::wstring simageString;
+		std::wstring sImageName;
+		UiRect rcDest;
+		UiRect rcSource;
+		UiRect rcCorner;
+		BYTE bFade;
+		bool bTiledX;
+		bool bTiledY;
+		int nPlayCount;//Â¶ÇÊûúÊòØGIFÂèØ‰ª•ÊåáÂÆöÊí≠ÊîæÊ¨°Êï∞ -1 Ôºö‰∏ÄÁõ¥Êí≠ÊîæÔºåÁº∫ÁúÅÂÄº„ÄÇ
+	};
 
-	bool IsValid() { return (bool)imageCache; }
-	bool IsPlaying() { return m_bPlaying; }
-	void SetPlaying(bool bPlaying) { m_bPlaying = bPlaying; }
+	class UILIB_API Image
+	{
+	public:
+		Image();
 
-	void SetImageString(const std::wstring& strImageString);
-	void ClearCache();
+		bool IsValid() { return (bool)imageCache; }
+		bool IsPlaying() { return m_bPlaying; }
+		void SetPlaying(bool bPlaying) { m_bPlaying = bPlaying; }
 
-	bool IncrementCurrentFrame();
-	void SetCurrentFrame(int nCurrentFrame);
-	HBITMAP GetCurrentHBitmap();
-	int GetCurrentInterval();
-	int GetCurrentFrameIndex();
-	int GetCycledCount();
-	void ClearCycledCount();
-	bool ContinuePlay();
-	ImageAttribute imageAttribute;
-	std::shared_ptr<ImageInfo> imageCache;
+		void SetImageString(const std::wstring& strImageString);
+		void ClearCache();
 
-private:
-	int m_nCurrentFrame;
-	bool m_bPlaying;
-	int m_nCycledCount;//≤•∑≈¥Œ ˝
-};
+		bool IncrementCurrentFrame();
+		void SetCurrentFrame(int nCurrentFrame);
+		HBITMAP GetCurrentHBitmap();
+		int GetCurrentInterval();
+		int GetCurrentFrameIndex();
+		int GetCycledCount();
+		void ClearCycledCount();
+		bool ContinuePlay();
+		ImageAttribute imageAttribute;
+		std::shared_ptr<ImageInfo> imageCache;
 
-class UILIB_API StateImage
-{
-public:
-	StateImage();
+	private:
+		int m_nCurrentFrame;
+		bool m_bPlaying;
+		int m_nCycledCount;//Êí≠ÊîæÊ¨°Êï∞
+	};
 
-	void SetControl(Control* control) {	m_pControl = control; }
-	Image& operator[](ControlStateType stateType) {	return m_stateImageMap[stateType]; }
+	class UILIB_API StateImage
+	{
+	public:
+		StateImage();
 
-	bool HasHotImage();
-	bool PaintStatusImage(IRenderContext* pRender, ControlStateType stateType, const std::wstring& sImageModify = L"");
-	Image* GetEstimateImage();
-	void ClearCache();
+		void SetControl(Control* control) { m_pControl = control; }
+		Image& operator[](ControlStateType stateType) { return m_stateImageMap[stateType]; }
 
-private:
-	Control* m_pControl;
-	std::map<ControlStateType, Image> m_stateImageMap;
-};
+		bool HasHotImage();
+		bool PaintStatusImage(IRenderContext* pRender, ControlStateType stateType, const std::wstring& sImageModify = L"");
+		Image* GetEstimateImage();
+		void ClearCache();
 
-class UILIB_API StateImageMap
-{
-public:
-	StateImageMap()	{ }
+	private:
+		Control* m_pControl;
+		std::map<ControlStateType, Image> m_stateImageMap;
+	};
 
-	void SetControl(Control* control);
+	class UILIB_API StateImageMap
+	{
+	public:
+		StateImageMap() { }
 
-	void SetImage(StateImageType stateImageType, ControlStateType stateType, const std::wstring& strImagePath);
-	std::wstring GetImagePath(StateImageType stateImageType, ControlStateType stateType);
+		void SetControl(Control* control);
 
-	bool HasHotImage();
-	bool PaintStatusImage(IRenderContext* pRender, StateImageType stateImageType, ControlStateType stateType, const std::wstring& sImageModify = L"");
-	Image* GetEstimateImage(StateImageType stateImageType);
+		void SetImage(StateImageType stateImageType, ControlStateType stateType, const std::wstring& strImagePath);
+		std::wstring GetImagePath(StateImageType stateImageType, ControlStateType stateType);
 
-	void ClearCache();
+		bool HasHotImage();
+		bool PaintStatusImage(IRenderContext* pRender, StateImageType stateImageType, ControlStateType stateType, const std::wstring& sImageModify = L"");
+		Image* GetEstimateImage(StateImageType stateImageType);
 
-private:
-	std::map<StateImageType, StateImage> m_stateImageMap;
-};
+		void ClearCache();
 
-class UILIB_API StateColorMap
-{
-public:
-	StateColorMap();
+	private:
+		std::map<StateImageType, StateImage> m_stateImageMap;
+	};
 
-	void SetControl(Control* control);
-	std::wstring& operator[](ControlStateType stateType) { return m_stateColorMap[stateType]; }
+	class UILIB_API StateColorMap
+	{
+	public:
+		StateColorMap();
 
-	bool HasHotColor();
-	void PaintStatusColor(IRenderContext* pRender, UiRect rcPaint, ControlStateType stateType);
+		void SetControl(Control* control);
+		std::wstring& operator[](ControlStateType stateType) { return m_stateColorMap[stateType]; }
 
-private:
-	Control* m_pControl;
-	std::map<ControlStateType, std::wstring> m_stateColorMap;
-};
+		bool HasHotColor();
+		void PaintStatusColor(IRenderContext* pRender, UiRect rcPaint, ControlStateType stateType);
+
+	private:
+		Control* m_pControl;
+		std::map<ControlStateType, std::wstring> m_stateColorMap;
+	};
 
 } // namespace ui
 

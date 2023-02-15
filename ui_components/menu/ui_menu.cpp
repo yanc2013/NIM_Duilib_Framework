@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "ui_menu.h"
 
 namespace nim_comp {
@@ -101,7 +101,7 @@ void CMenuWnd::Show()
 		rc.top = monitor_rect.top;
 	}
 
-	//�ж��Ƿ񳬳���Ļ
+	//ÅÐ¶ÏÊÇ·ñ³¬³öÆÁÄ»
 	if (rc.left > monitor_rect.right - szInit.cx)
 	{
 		rc.left = monitor_rect.right - szInit.cx;

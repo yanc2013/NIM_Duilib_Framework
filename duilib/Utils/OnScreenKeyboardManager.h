@@ -1,4 +1,4 @@
-#ifndef UI_UTILS_ONSCREENKEYBOARDMANAGER_H_
+ï»¿#ifndef UI_UTILS_ONSCREENKEYBOARDMANAGER_H_
 #define UI_UTILS_ONSCREENKEYBOARDMANAGER_H_
 
 #pragma once
@@ -6,7 +6,7 @@
 namespace ui
 {
 /** @class OnScreenKeyboardManager
-  * @brief D¨¦?a?¨¹?¨¬1¨¹¨¤¨ª¨¤¨¤
+  * @brief DÐ¸Ð¶?a?Ð¸â•£?Ð¸Ð¼1Ð¸â•£Ð¸Ð´Ð¸ÐºÐ¸Ð´Ð¸Ð´
   * @copyright (c) 2018, NetEase Inc. All rights reserved
   * @author Redrain
   * @date 2018/08/28
@@ -17,14 +17,14 @@ public:
 	static OnScreenKeyboardManager* GetInstance();
 
 	/**
-	  * D¨¦?a?¨¹?¨¬¨º?¡¤??y?¨²??¨º?
+	  * DÐ¸Ð¶?a?Ð¸â•£?Ð¸Ð¼Ð¸â•‘?Ð±Ð´??y?Ð¸â–“??Ð¸â•‘?
 	  * @return bool
 	  */
 	bool IsVisible();
 
 	/**
-	  * ??¨º?D¨¦?a?¨¹?¨¬
-	  * @param[in] show ¨º?¡¤???¨º?
+	  * ??Ð¸â•‘?DÐ¸Ð¶?a?Ð¸â•£?Ð¸Ð¼
+	  * @param[in] show Ð¸â•‘?Ð±Ð´???Ð¸â•‘?
 	  * @return void
 	  */
 	void ShowOSK(bool show);
