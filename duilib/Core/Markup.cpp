@@ -337,14 +337,14 @@ bool CMarkup::LoadFromFile(LPCTSTR pstrFilename, int encoding)
 {
     Release();
     std::wstring sFile = GlobalManager::GetResourcePath();
-	if (::PathIsRelative(pstrFilename))
-	{
-		sFile += pstrFilename;
-	}
-	else
-	{
-		sFile = pstrFilename;
-	}
+    if (::PathIsRelative(pstrFilename))
+    {
+        sFile += pstrFilename;
+    }
+    else
+    {
+        sFile = pstrFilename;
+    }
     HANDLE hFile = ::CreateFile(sFile.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
     if( hFile == INVALID_HANDLE_VALUE ) return _Failed(_T("Error opening file"));
     DWORD dwSize = ::GetFileSize(hFile, NULL);
@@ -539,13 +539,13 @@ bool CMarkup::_ParseAttributes(LPTSTR& pstrText)
 bool CMarkup::_ParseData(LPTSTR& pstrText, LPTSTR& pstrDest, char cEnd)
 {
     while( *pstrText != _T('\0') && *pstrText != cEnd ) {
-		if( *pstrText == _T('&') ) {
-			while( *pstrText == _T('&') ) {
-				_ParseMetaChar(++pstrText, pstrDest);
-			}
-			if (*pstrText == cEnd)
-				break;
-		}
+        if( *pstrText == _T('&') ) {
+            while( *pstrText == _T('&') ) {
+                _ParseMetaChar(++pstrText, pstrDest);
+            }
+            if (*pstrText == cEnd)
+                break;
+        }
 
         if( *pstrText == _T(' ') ) {
             *pstrDest++ = *pstrText++;

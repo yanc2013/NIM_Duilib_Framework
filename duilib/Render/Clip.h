@@ -9,12 +9,12 @@ namespace ui
 class UILIB_API GdiClip : public IClip
 {
 public:
-	GdiClip();
+    GdiClip();
     ~GdiClip();
 
-	virtual void CreateClip(HDC hDC, UiRect rc) override;
-	virtual void CreateRoundClip(HDC hDC, UiRect rc, int width, int height) override;
-	virtual void ClearClip(HDC hDC) override;
+    virtual void CreateClip(HDC hDC, UiRect rc) override;
+    virtual void CreateRoundClip(HDC hDC, UiRect rc, int width, int height) override;
+    virtual void ClearClip(HDC hDC) override;
 };
 
 

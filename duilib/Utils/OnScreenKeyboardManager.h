@@ -14,32 +14,32 @@ namespace ui
 class UILIB_API OnScreenKeyboardManager : public virtual nbase::SupportWeakCallback
 {
 public:
-	static OnScreenKeyboardManager* GetInstance();
+    static OnScreenKeyboardManager* GetInstance();
 
-	/**
-	  * Dиж?a?и╣?ими║?бд??y?и▓??и║?
-	  * @return bool
-	  */
-	bool IsVisible();
+    /**
+      * Dиж?a?и╣?ими║?бд??y?и▓??и║?
+      * @return bool
+      */
+    bool IsVisible();
 
-	/**
-	  * ??и║?Dиж?a?и╣?им
-	  * @param[in] show и║?бд???и║?
-	  * @return void
-	  */
-	void ShowOSK(bool show);
-
-private:
-	OnScreenKeyboardManager();
-	~OnScreenKeyboardManager() {};
-	OnScreenKeyboardManager(const OnScreenKeyboardManager&) = delete;
-	OnScreenKeyboardManager& operator = (const OnScreenKeyboardManager&) = delete;
-
-	void TimerCallback();
-	void StartTabTip();
+    /**
+      * ??и║?Dиж?a?и╣?им
+      * @param[in] show и║?бд???и║?
+      * @return void
+      */
+    void ShowOSK(bool show);
 
 private:
-	bool m_bShow = false;
+    OnScreenKeyboardManager();
+    ~OnScreenKeyboardManager() {};
+    OnScreenKeyboardManager(const OnScreenKeyboardManager&) = delete;
+    OnScreenKeyboardManager& operator = (const OnScreenKeyboardManager&) = delete;
+
+    void TimerCallback();
+    void StartTabTip();
+
+private:
+    bool m_bShow = false;
 };
 }
 #endif //UI_UTILS_ONSCREENKEYBOARDMANAGER_H_

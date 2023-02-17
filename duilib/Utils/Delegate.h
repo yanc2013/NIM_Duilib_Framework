@@ -13,19 +13,19 @@ typedef std::function<bool(ui::EventArgs*)> EventCallback;
 class CEventSource : public std::vector<EventCallback>
 {
 public:
-	CEventSource& operator += (const EventCallback& item) 
-	{
-		push_back(item);
-		return *this;
-	}
+    CEventSource& operator += (const EventCallback& item) 
+    {
+        push_back(item);
+        return *this;
+    }
 
-	bool operator() (ui::EventArgs* param) const 
-	{
-		for (auto it = this->begin(); it != this->end(); it++) {
-			if(!(*it)(param)) return false;
-		}
-		return true;
-	}
+    bool operator() (ui::EventArgs* param) const 
+    {
+        for (auto it = this->begin(); it != this->end(); it++) {
+            if(!(*it)(param)) return false;
+        }
+        return true;
+    }
 
 };
 

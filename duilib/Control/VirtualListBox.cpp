@@ -28,21 +28,21 @@ CSize VirtualLayout::ArrangeChild(const std::vector<Control*>& items, UiRect rc)
 }
 
 VirtualListBox::VirtualListBox(ui::Layout* pLayout) : 
-	ui::ListBox(pLayout),
-	m_pDataProvider(nullptr),
-	m_nElementHeight(0),
-	m_nMaxItemCount(0),
-	m_nOldYScrollPos(0),
-	m_bArrangedOnce(false),
-	m_bForceArrange(false)
+    ui::ListBox(pLayout),
+    m_pDataProvider(nullptr),
+    m_nElementHeight(0),
+    m_nMaxItemCount(0),
+    m_nOldYScrollPos(0),
+    m_bArrangedOnce(false),
+    m_bForceArrange(false)
 {
 
 }
 
 void VirtualListBox::SetDataProvider(VirtualListInterface *pProvider)
 {
-	ASSERT(pProvider);
-	m_pDataProvider = pProvider;
+    ASSERT(pProvider);
+    m_pDataProvider = pProvider;
 }
 
 void VirtualListBox::SetElementHeight(int nHeight) 
@@ -52,18 +52,18 @@ void VirtualListBox::SetElementHeight(int nHeight)
 
 void VirtualListBox::InitElement(int nMaxItemCount)
 {
-	ASSERT(m_pDataProvider);
-	ASSERT(m_nElementHeight);
+    ASSERT(m_pDataProvider);
+    ASSERT(m_nElementHeight);
     m_nMaxItemCount = nMaxItemCount;
 
     int nCount = GetElementCount();
-	if (nCount > nMaxItemCount)
-		nCount = nMaxItemCount;
+    if (nCount > nMaxItemCount)
+        nCount = nMaxItemCount;
 
-	for (int i = 0; i < nCount; i++) {
+    for (int i = 0; i < nCount; i++) {
         Control *pControl = CreateElement();
-		this->Add(pControl);
-		FillElement(pControl, i);
+        this->Add(pControl);
+        FillElement(pControl, i);
     }
 }
 
@@ -77,18 +77,18 @@ void VirtualListBox::Refresh()
         for (int i = 0; i < n; i++)
             this->RemoveAt(0);
     } 
-	else if (nItemCount < nElementCount) {
+    else if (nItemCount < nElementCount) {
         int n = 0;
         if (nElementCount <= m_nMaxItemCount) {
             n = nElementCount - nItemCount;
         } 
-		else {
+        else {
             n = m_nMaxItemCount - nItemCount;
         }
 
         for (int i = 0; i < n; i++) {
             Control *pControl = CreateElement();
-			this->Add(pControl);
+            this->Add(pControl);
         }
     }
 
@@ -102,7 +102,7 @@ void VirtualListBox::Refresh()
         for (int i = 0; i < (int)m_items.size(); i++)
             FillElement(m_items[i], i);
     } 
-	else {
+    else {
         ASSERT(nElementCount);
         if (nElementCount <= 0)
             return;
@@ -126,125 +126,125 @@ void VirtualListBox::RemoveAll()
 
 void VirtualListBox::SetForceArrange(bool bForce)
 {
-	m_bForceArrange = bForce;
+    m_bForceArrange = bForce;
 }
 
 void VirtualListBox::GetDisplayCollection(std::vector<int>& collection)
 {
-	collection.clear();
+    collection.clear();
 
-	if (GetCount() == 0)
-		return;
+    if (GetCount() == 0)
+        return;
 
-	UiRect rcThis = this->GetPos(false);
+    UiRect rcThis = this->GetPos(false);
 
-	int min = GetScrollPos().cy / m_nElementHeight;
-	int max = min + (rcThis.GetHeight() / m_nElementHeight);
-	int nCount = GetElementCount();
-	if (max >= nCount)
-		max = nCount - 1;
+    int min = GetScrollPos().cy / m_nElementHeight;
+    int max = min + (rcThis.GetHeight() / m_nElementHeight);
+    int nCount = GetElementCount();
+    if (max >= nCount)
+        max = nCount - 1;
 
-	for (auto i = min; i <= max; i++)
-		collection.push_back(i);
+    for (auto i = min; i <= max; i++)
+        collection.push_back(i);
 }
 
 void VirtualListBox::EnsureVisible(int iIndex, bool bToTop) 
 {
-	if (iIndex < 0 || iIndex >= GetElementCount())
-		return;
+    if (iIndex < 0 || iIndex >= GetElementCount())
+        return;
 
-	int nPos = m_pVerticalScrollBar->GetScrollPos();
-	int nTopIndex = nPos / m_nElementHeight;
-	int nNewPos = 0;
+    int nPos = m_pVerticalScrollBar->GetScrollPos();
+    int nTopIndex = nPos / m_nElementHeight;
+    int nNewPos = 0;
 
-	if (bToTop) {
-		nNewPos = CalcElementsHeight(iIndex);
-		if (nNewPos >= m_pVerticalScrollBar->GetScrollRange())
-			return;
-	}
-	else {
-		if (IsElementDisplay(iIndex))
-			return;
+    if (bToTop) {
+        nNewPos = CalcElementsHeight(iIndex);
+        if (nNewPos >= m_pVerticalScrollBar->GetScrollRange())
+            return;
+    }
+    else {
+        if (IsElementDisplay(iIndex))
+            return;
 
-		if (iIndex > nTopIndex) {
-			// 向下
-			int height = CalcElementsHeight(iIndex + 1);
-			nNewPos = height - m_rcItem.GetHeight();
-		}
-		else {
-			// 向上
-			nNewPos = CalcElementsHeight(iIndex);
-		}
-	}
-	CSize sz(0, nNewPos);
-	SetScrollPos(sz);
+        if (iIndex > nTopIndex) {
+            // 向下
+            int height = CalcElementsHeight(iIndex + 1);
+            nNewPos = height - m_rcItem.GetHeight();
+        }
+        else {
+            // 向上
+            nNewPos = CalcElementsHeight(iIndex);
+        }
+    }
+    CSize sz(0, nNewPos);
+    SetScrollPos(sz);
 }
 
 void VirtualListBox::ReArrangeChild(bool bForce)
 {
-	ScrollDirection direction = kScrollUp;
-	if (!bForce && !m_bForceArrange) {
-		if (!NeedReArrange(direction))
-			return;
-	}
-	//max( pos ) = range
-	//int range = m_pVerticalScrollBar->GetScrollRange();
-	//int pos = m_pVerticalScrollBar->GetScrollPos();
+    ScrollDirection direction = kScrollUp;
+    if (!bForce && !m_bForceArrange) {
+        if (!NeedReArrange(direction))
+            return;
+    }
+    //max( pos ) = range
+    //int range = m_pVerticalScrollBar->GetScrollRange();
+    //int pos = m_pVerticalScrollBar->GetScrollPos();
 
-	int nElementCount = GetElementCount();
+    int nElementCount = GetElementCount();
 
-	int nTopIndexBottom = 0;
-	int nTopIndex = GetTopElementIndex(nTopIndexBottom);
+    int nTopIndexBottom = 0;
+    int nTopIndex = GetTopElementIndex(nTopIndexBottom);
 
-	if (direction == kScrollDown) {
-		// 向下滚动
-		ui::UiRect rcItem = m_rcItem;
-		rcItem.bottom = rcItem.top + nTopIndexBottom;
+    if (direction == kScrollDown) {
+        // 向下滚动
+        ui::UiRect rcItem = m_rcItem;
+        rcItem.bottom = rcItem.top + nTopIndexBottom;
 
-		for (int i = 0; i < (int)m_items.size(); i++) {
-			rcItem.top = rcItem.bottom;
-			rcItem.bottom = rcItem.top + m_nElementHeight;
+        for (int i = 0; i < (int)m_items.size(); i++) {
+            rcItem.top = rcItem.bottom;
+            rcItem.bottom = rcItem.top + m_nElementHeight;
 
-			m_items[i]->SetPos(rcItem);
+            m_items[i]->SetPos(rcItem);
 
-			int nElementIndex = nTopIndex + i;
-			if (nElementIndex < nElementCount)
-				FillElement(m_items[i], nElementIndex);
-		}
-	}
-	else {
-		// 向上滚动
-		int nDisplayCount = m_rcItem.GetHeight() / m_nElementHeight + 1;
-		int nHideCount = (int)m_items.size() - nDisplayCount;
+            int nElementIndex = nTopIndex + i;
+            if (nElementIndex < nElementCount)
+                FillElement(m_items[i], nElementIndex);
+        }
+    }
+    else {
+        // 向上滚动
+        int nDisplayCount = m_rcItem.GetHeight() / m_nElementHeight + 1;
+        int nHideCount = (int)m_items.size() - nDisplayCount;
 
-		// 上半部分
-		UiRect rcItem = m_rcItem;
-		rcItem.top = m_rcItem.top + nTopIndexBottom;
-		for (int i = nHideCount - 1; i >= 0; i--) {
-			rcItem.bottom = rcItem.top;
-			rcItem.top = rcItem.bottom - m_nElementHeight;
+        // 上半部分
+        UiRect rcItem = m_rcItem;
+        rcItem.top = m_rcItem.top + nTopIndexBottom;
+        for (int i = nHideCount - 1; i >= 0; i--) {
+            rcItem.bottom = rcItem.top;
+            rcItem.top = rcItem.bottom - m_nElementHeight;
 
-			m_items[i]->SetPos(rcItem);
+            m_items[i]->SetPos(rcItem);
 
-			int nElementIndex = nTopIndex - (nHideCount - i);
-			if (nElementIndex >= 0)
-				FillElement(m_items[i], nElementIndex);
-		}
+            int nElementIndex = nTopIndex - (nHideCount - i);
+            if (nElementIndex >= 0)
+                FillElement(m_items[i], nElementIndex);
+        }
 
-		// 下半部分
-		rcItem = m_rcItem;
-		rcItem.bottom = m_rcItem.top + nTopIndexBottom;
-		for (int i = nHideCount; i < (int)m_items.size(); i++) {
-			rcItem.top = rcItem.bottom;
-			rcItem.bottom = rcItem.top + m_nElementHeight;
+        // 下半部分
+        rcItem = m_rcItem;
+        rcItem.bottom = m_rcItem.top + nTopIndexBottom;
+        for (int i = nHideCount; i < (int)m_items.size(); i++) {
+            rcItem.top = rcItem.bottom;
+            rcItem.bottom = rcItem.top + m_nElementHeight;
 
-			m_items[i]->SetPos(rcItem);
+            m_items[i]->SetPos(rcItem);
 
-			int nElementIndex = nTopIndex + (i - nHideCount);
-			if (nElementIndex < nElementCount)
-				FillElement(m_items[i], nElementIndex);
-		}
-	}
+            int nElementIndex = nTopIndex + (i - nHideCount);
+            if (nElementIndex < nElementCount)
+                FillElement(m_items[i], nElementIndex);
+        }
+    }
 }
 
 void VirtualListBox::AddElement(int iIndex) 
@@ -252,8 +252,8 @@ void VirtualListBox::AddElement(int iIndex)
     int nCount = GetElementCount();
     if (nCount <= m_nMaxItemCount) {
         Control *pControl = CreateElement();
-		this->AddAt(pControl, iIndex);
-		FillElement(pControl, iIndex);
+        this->AddAt(pControl, iIndex);
+        FillElement(pControl, iIndex);
     } else {
         ReArrangeChild(true);
         Arrange();
@@ -347,29 +347,29 @@ void VirtualListBox::SetPos(UiRect rc)
 
 ui::Control* VirtualListBox::CreateElement()
 {
-	if (m_pDataProvider)
-		return m_pDataProvider->CreateElement();
+    if (m_pDataProvider)
+        return m_pDataProvider->CreateElement();
 
-	return nullptr;
+    return nullptr;
 }
 
 void VirtualListBox::FillElement(Control *pControl, int iIndex)
 {
-	if (m_pDataProvider)
-		m_pDataProvider->FillElement(pControl, iIndex);
+    if (m_pDataProvider)
+        m_pDataProvider->FillElement(pControl, iIndex);
 }
 
 int VirtualListBox::GetElementCount()
 {
-	if (m_pDataProvider)
-		return m_pDataProvider->GetElementtCount();
+    if (m_pDataProvider)
+        return m_pDataProvider->GetElementtCount();
 
-	return 0;
+    return 0;
 }
 
 bool VirtualListBox::UseDefaultLayout()
 {
-	return GetElementCount() <= GetCount();
+    return GetElementCount() <= GetCount();
 }
 
 int VirtualListBox::CalcElementsHeight(int nCount) 
@@ -425,7 +425,7 @@ bool VirtualListBox::NeedReArrange(ScrollDirection &direction)
     if (rcThis.GetWidth() <= 0)
         return false;
 
-	int nPos = m_pVerticalScrollBar->GetScrollPos();
+    int nPos = m_pVerticalScrollBar->GetScrollPos();
     UiRect rcItem;
 
     // 补救措施
@@ -445,7 +445,7 @@ bool VirtualListBox::NeedReArrange(ScrollDirection &direction)
         // 下
         rcItem = m_items[nCount - 1]->GetPos();
         int nSub = (rcItem.bottom - rcThis.top) - (nPos + rcThis.GetHeight());
-		if (nSub < 0) {
+        if (nSub < 0) {
             direction = kScrollDown;
             return true;
         }

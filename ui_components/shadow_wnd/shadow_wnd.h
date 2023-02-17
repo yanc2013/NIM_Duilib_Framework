@@ -17,16 +17,16 @@ using namespace ui;
 class ShadowWnd : public WindowImplBase
 {
 public:
-	ShadowWnd();
+    ShadowWnd();
 
-	virtual std::wstring GetSkinFolder() override;
-	virtual std::wstring GetSkinFile() override;
-	virtual std::wstring GetWindowClassName() const override;
-	virtual LRESULT MessageHandler(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled) override;
-	
-	virtual HWND Create(Window* window);
+    virtual std::wstring GetSkinFolder() override;
+    virtual std::wstring GetSkinFile() override;
+    virtual std::wstring GetWindowClassName() const override;
+    virtual LRESULT MessageHandler(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled) override;
+    
+    virtual HWND Create(Window* window);
 private:
-	Window*	window_ = nullptr;
+    Window*    window_ = nullptr;
 };
 
 /** @class ShadowWnd
@@ -37,13 +37,13 @@ private:
 class ShadowWndBase : public WindowImplBase
 {
 public:
-	ShadowWndBase();
+    ShadowWndBase();
 
-	virtual HWND Create(HWND hwndParent, LPCTSTR pstrName, DWORD dwStyle, DWORD dwExStyle, 
-		bool isLayeredWindow = false, const ui::UiRect& rc = ui::UiRect(0, 0, 0, 0)) override;
+    virtual HWND Create(HWND hwndParent, LPCTSTR pstrName, DWORD dwStyle, DWORD dwExStyle, 
+        bool isLayeredWindow = false, const ui::UiRect& rc = ui::UiRect(0, 0, 0, 0)) override;
 
 private:
-	ShadowWnd* shadow_wnd_;
+    ShadowWnd* shadow_wnd_;
 };
 } // namespace ui
 

@@ -51,41 +51,41 @@ private:
 class BASE_EXPORT NAutoLock
 {
 public:
-	NAutoLock(NLock * lock)
-	{
-		assert(lock);
-		lock_ = lock;
-		lock_->Lock();
-	}
+    NAutoLock(NLock * lock)
+    {
+        assert(lock);
+        lock_ = lock;
+        lock_->Lock();
+    }
 
-	~NAutoLock()
-	{
-		if (lock_)
-			lock_->Unlock();
-	}
+    ~NAutoLock()
+    {
+        if (lock_)
+            lock_->Unlock();
+    }
 
 private:
-	NLock *lock_;
+    NLock *lock_;
 };
 
 class BASE_EXPORT NAutoUnlock
 {
 public:
-	NAutoUnlock(NLock * lock)
-	{
-		assert(lock);
-		lock_ = lock;
-		lock_->Unlock();
-	}
+    NAutoUnlock(NLock * lock)
+    {
+        assert(lock);
+        lock_ = lock;
+        lock_->Unlock();
+    }
 
-	~NAutoUnlock()
-	{
-		if (lock_)
-			lock_->Lock();
-	}
+    ~NAutoUnlock()
+    {
+        if (lock_)
+            lock_->Lock();
+    }
 
 private:
-	NLock *lock_;
+    NLock *lock_;
 };
 
 }  // namespace nbase

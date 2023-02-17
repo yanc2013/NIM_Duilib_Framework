@@ -47,8 +47,8 @@ public:
     void SetWordWrap(BOOL fWordWrap);
     BOOL GetReadOnly();
     void SetReadOnly(BOOL fReadOnly);
-	BOOL IsPassword();
-	void SetPassword(BOOL bPassword);
+    BOOL IsPassword();
+    void SetPassword(BOOL bPassword);
     void SetFont(HFONT hFont);
     void SetColor(DWORD dwColor);
     SIZEL* GetExtent();
@@ -80,55 +80,55 @@ public:
     void SetCharFormat(CHARFORMAT2W &c);
     void SetParaFormat(PARAFORMAT2 &p);
 
-	ITextHost * GetTextHost()
-	{
-		AddRef();
-		return this;
-	}
+    ITextHost * GetTextHost()
+    {
+        AddRef();
+        return this;
+    }
 
-	ITextServices * GetTextServices2()
-	{
-		if (NULL == pserv)
-			return NULL;
-		pserv->AddRef();
-		return pserv;
-	}
+    ITextServices * GetTextServices2()
+    {
+        if (NULL == pserv)
+            return NULL;
+        pserv->AddRef();
+        return pserv;
+    }
 
-	BOOL SetOleCallback(IRichEditOleCallback* pCallback)
-	{
-		if (NULL == pserv)
-			return FALSE;
-		LRESULT lRes = 0;
-		pserv->TxSendMessage(EM_SETOLECALLBACK, 0, (LPARAM)pCallback, &lRes);
-		return (BOOL)lRes;
-	}
+    BOOL SetOleCallback(IRichEditOleCallback* pCallback)
+    {
+        if (NULL == pserv)
+            return FALSE;
+        LRESULT lRes = 0;
+        pserv->TxSendMessage(EM_SETOLECALLBACK, 0, (LPARAM)pCallback, &lRes);
+        return (BOOL)lRes;
+    }
 
-	BOOL CanPaste(UINT nFormat = 0)
-	{
-		if (NULL == pserv)
-			return FALSE;
-		LRESULT lRes = 0;
-		pserv->TxSendMessage(EM_CANPASTE, nFormat, 0L, &lRes);
-		return (BOOL)lRes;
-	}
+    BOOL CanPaste(UINT nFormat = 0)
+    {
+        if (NULL == pserv)
+            return FALSE;
+        LRESULT lRes = 0;
+        pserv->TxSendMessage(EM_CANPASTE, nFormat, 0L, &lRes);
+        return (BOOL)lRes;
+    }
 
-	void PasteSpecial(UINT uClipFormat, DWORD dwAspect = 0, HMETAFILE hMF = 0)
-	{
-		if (NULL == pserv)
-			return;
-		REPASTESPECIAL reps = { dwAspect, (DWORD_PTR)hMF };
-		pserv->TxSendMessage(EM_PASTESPECIAL, uClipFormat, (LPARAM)&reps, NULL);
-	}
+    void PasteSpecial(UINT uClipFormat, DWORD dwAspect = 0, HMETAFILE hMF = 0)
+    {
+        if (NULL == pserv)
+            return;
+        REPASTESPECIAL reps = { dwAspect, (DWORD_PTR)hMF };
+        pserv->TxSendMessage(EM_PASTESPECIAL, uClipFormat, (LPARAM)&reps, NULL);
+    }
 
     // -----------------------------
-    //	IUnknown interface
+    //    IUnknown interface
     // -----------------------------
     virtual HRESULT _stdcall QueryInterface(REFIID riid, void **ppvObject);
     virtual ULONG _stdcall AddRef(void);
     virtual ULONG _stdcall Release(void);
 
     // -----------------------------
-    //	ITextHost interface
+    //    ITextHost interface
     // -----------------------------
     virtual HDC TxGetDC();
     virtual INT TxReleaseDC(HDC hdc);
@@ -172,33 +172,33 @@ public:
 
 private:
     RichEdit *m_re;
-    ULONG	cRefs;					// Reference Count
-    ITextServices	*pserv;		    // pointer to Text Services object
+    ULONG    cRefs;                    // Reference Count
+    ITextServices    *pserv;            // pointer to Text Services object
     // Properties
 
-    DWORD		dwStyle;				// style bits
+    DWORD        dwStyle;                // style bits
 
-    unsigned	fEnableAutoWordSel	:1;	// enable Word style auto word selection?
-    unsigned	fWordWrap			:1;	// Whether control should word wrap
-    unsigned	fAllowBeep			:1;	// Whether beep is allowed
-    unsigned	fRich				:1;	// Whether control is rich text
-    unsigned	fSaveSelection		:1;	// Whether to save the selection when inactive
-    unsigned	fInplaceActive		:1; // Whether control is inplace active
-    unsigned	fTransparent		:1; // Whether control is transparent
-    unsigned	fTimer				:1;	// A timer is set
+    unsigned    fEnableAutoWordSel    :1;    // enable Word style auto word selection?
+    unsigned    fWordWrap            :1;    // Whether control should word wrap
+    unsigned    fAllowBeep            :1;    // Whether beep is allowed
+    unsigned    fRich                :1;    // Whether control is rich text
+    unsigned    fSaveSelection        :1;    // Whether to save the selection when inactive
+    unsigned    fInplaceActive        :1; // Whether control is inplace active
+    unsigned    fTransparent        :1; // Whether control is transparent
+    unsigned    fTimer                :1;    // A timer is set
     unsigned    fCaptured           :1;
 
-    LONG		lSelBarWidth;			// Width of the selection bar
-    LONG  		cchTextMost;			// maximum text size
-    DWORD		dwEventMask;			// HandleMessage mask to pass on to parent window
-    LONG		icf;
-    LONG		ipf;
-    UiRect		rcClient;				// Client Rect for this control
-    SIZEL		sizelExtent;			// Extent array
-    CHARFORMAT2W cf;					// Default character format
-    PARAFORMAT2	pf;					    // Default paragraph format
-    LONG		laccelpos;				// Accelerator position
-    WCHAR		chPasswordChar;		    // Password character
+    LONG        lSelBarWidth;            // Width of the selection bar
+    LONG          cchTextMost;            // maximum text size
+    DWORD        dwEventMask;            // HandleMessage mask to pass on to parent window
+    LONG        icf;
+    LONG        ipf;
+    UiRect        rcClient;                // Client Rect for this control
+    SIZEL        sizelExtent;            // Extent array
+    CHARFORMAT2W cf;                    // Default character format
+    PARAFORMAT2    pf;                        // Default paragraph format
+    LONG        laccelpos;                // Accelerator position
+    WCHAR        chPasswordChar;            // Password character
 };
 
 // Convert Pixels on the X axis to Himetric
@@ -221,12 +221,12 @@ HRESULT InitDefaultCharFormat(RichEdit* re, CHARFORMAT2W* pcf, HFONT hfont)
         hfont = GlobalManager::GetFont(re->GetFont());
     ::GetObject(hfont, sizeof(LOGFONT), &lf);
 
-	DWORD dwColor = GlobalManager::GetTextColor(re->GetTextColor());
+    DWORD dwColor = GlobalManager::GetTextColor(re->GetTextColor());
     pcf->cbSize = sizeof(CHARFORMAT2W);
     pcf->crTextColor = RGB(GetBValue(dwColor), GetGValue(dwColor), GetRValue(dwColor));
     LONG yPixPerInch = GetDeviceCaps(re->GetWindow()->GetPaintDC(), LOGPIXELSY);
-	if (yPixPerInch == 0)
-		yPixPerInch = 96;
+    if (yPixPerInch == 0)
+        yPixPerInch = 96;
     pcf->yHeight = -lf.lfHeight * LY_PER_INCH / yPixPerInch;
     pcf->yOffset = 0;
     pcf->dwEffects = 0;
@@ -250,7 +250,7 @@ HRESULT InitDefaultCharFormat(RichEdit* re, CHARFORMAT2W* pcf, HFONT hfont)
 }
 
 HRESULT InitDefaultParaFormat(RichEdit* re, PARAFORMAT2* ppf) 
-{	
+{    
     memset(ppf, 0, sizeof(PARAFORMAT2));
     ppf->cbSize = sizeof(PARAFORMAT2);
     ppf->dwMask = PFM_ALL;
@@ -301,11 +301,11 @@ CTxtWinHost::~CTxtWinHost()
 
 BOOL CTxtWinHost::Init(RichEdit *re, const CREATESTRUCT *pcs)
 {
-	PCreateTextServices TextServicesProc = nullptr;
+    PCreateTextServices TextServicesProc = nullptr;
     IUnknown *pUnk = nullptr;
-	HMODULE hmod = NULL;
+    HMODULE hmod = NULL;
     HRESULT hr;
-	std::wstring edit_dll(L"msftedit.dll");
+    std::wstring edit_dll(L"msftedit.dll");
     m_re = re;
     // Initialize Reference count
     cRefs = 1;
@@ -351,24 +351,24 @@ BOOL CTxtWinHost::Init(RichEdit *re, const CREATESTRUCT *pcs)
     //if(FAILED(CreateTextServices(NULL, this, &pUnk)))
     //    goto err;
 
-	//解决32位系统下跨窗口间拖拽文字在win7及win7以下系统上会出现重复的问题（64位暂不修复） lty 20170714
+    //解决32位系统下跨窗口间拖拽文字在win7及win7以下系统上会出现重复的问题（64位暂不修复） lty 20170714
 #if defined(_M_X64) || defined(__x86_64__)
-	edit_dll = L"msftedit.dll";
+    edit_dll = L"msftedit.dll";
 #else
-	edit_dll = nbase::win32::GetCurrentModuleDirectory() + L"msftedit50.dll";
-	if (!(::GetFileAttributesW(edit_dll.c_str()) != INVALID_FILE_ATTRIBUTES))
-		edit_dll = L"msftedit.dll";
+    edit_dll = nbase::win32::GetCurrentModuleDirectory() + L"msftedit50.dll";
+    if (!(::GetFileAttributesW(edit_dll.c_str()) != INVALID_FILE_ATTRIBUTES))
+        edit_dll = L"msftedit.dll";
 #endif
-	hmod = LoadLibraryW(edit_dll.c_str()); //msftedit.dll
-	if (hmod)
-	{
-		TextServicesProc = (PCreateTextServices)GetProcAddress(hmod,"CreateTextServices");
-	}
+    hmod = LoadLibraryW(edit_dll.c_str()); //msftedit.dll
+    if (hmod)
+    {
+        TextServicesProc = (PCreateTextServices)GetProcAddress(hmod,"CreateTextServices");
+    }
 
-	if (TextServicesProc)
-	{
-		TextServicesProc(NULL, this, &pUnk);
-	}
+    if (TextServicesProc)
+    {
+        TextServicesProc(NULL, this, &pUnk);
+    }
 
     hr = pUnk->QueryInterface(IID_ITextServices,(void **)&pserv);
 
@@ -384,7 +384,7 @@ BOOL CTxtWinHost::Init(RichEdit *re, const CREATESTRUCT *pcs)
     // Set window text
     if(pcs && pcs->lpszName)
     {
-#ifdef _UNICODE		
+#ifdef _UNICODE        
         if(FAILED(pserv->TxSetText((TCHAR *)pcs->lpszName)))
             goto err;
 #else
@@ -468,7 +468,7 @@ int CTxtWinHost::TxReleaseDC(HDC hdc)
 
 BOOL CTxtWinHost::TxShowScrollBar(INT fnBar, BOOL fShow)
 {
-	ASSERT(FALSE); //暂时注释掉，不知道这代码有啥用   by panqinke 2014.5.6
+    ASSERT(FALSE); //暂时注释掉，不知道这代码有啥用   by panqinke 2014.5.6
     //ScrollBar* pVerticalScrollBar = m_re->GetVerticalScrollBar();
     //ScrollBar* pHorizontalScrollBar = m_re->GetHorizontalScrollBar();
     //if( fnBar == SB_VERT && pVerticalScrollBar ) {
@@ -486,26 +486,26 @@ BOOL CTxtWinHost::TxShowScrollBar(INT fnBar, BOOL fShow)
 
 BOOL CTxtWinHost::TxEnableScrollBar (INT fuSBFlags, INT fuArrowflags)
 {
-	if( fuSBFlags == SB_VERT ) {
-		if (fuArrowflags == ESB_DISABLE_BOTH) {
-			m_re->GetVerticalScrollBar()->SetScrollRange(0);
-		}		
-	}
-	else if( fuSBFlags == SB_HORZ ) {
-		if (fuArrowflags == ESB_DISABLE_BOTH) {
-			m_re->GetHorizontalScrollBar()->SetScrollRange(0);
-		}
-	}
-	else if( fuSBFlags == SB_BOTH ) {
-		if (fuArrowflags == ESB_DISABLE_BOTH) {
-			m_re->GetVerticalScrollBar()->SetScrollRange(0);
-		}
-		if (fuArrowflags == ESB_DISABLE_BOTH) {
-			m_re->GetHorizontalScrollBar()->SetScrollRange(0);
-		}
-	}
-	
-	m_re->SetPos(m_re->GetPos());
+    if( fuSBFlags == SB_VERT ) {
+        if (fuArrowflags == ESB_DISABLE_BOTH) {
+            m_re->GetVerticalScrollBar()->SetScrollRange(0);
+        }        
+    }
+    else if( fuSBFlags == SB_HORZ ) {
+        if (fuArrowflags == ESB_DISABLE_BOTH) {
+            m_re->GetHorizontalScrollBar()->SetScrollRange(0);
+        }
+    }
+    else if( fuSBFlags == SB_BOTH ) {
+        if (fuArrowflags == ESB_DISABLE_BOTH) {
+            m_re->GetVerticalScrollBar()->SetScrollRange(0);
+        }
+        if (fuArrowflags == ESB_DISABLE_BOTH) {
+            m_re->GetHorizontalScrollBar()->SetScrollRange(0);
+        }
+    }
+    
+    m_re->SetPos(m_re->GetPos());
 
     return TRUE;
 }
@@ -514,33 +514,33 @@ BOOL CTxtWinHost::TxSetScrollRange(INT fnBar, LONG nMinPos, INT nMaxPos, BOOL fR
 {
     ScrollBar* pVerticalScrollBar = m_re->GetVerticalScrollBar();
     ScrollBar* pHorizontalScrollBar = m_re->GetHorizontalScrollBar();
-	bool bArrange = false;
+    bool bArrange = false;
     if( fnBar == SB_VERT && pVerticalScrollBar ) {
         if( nMaxPos - nMinPos - rcClient.bottom + rcClient.top <= 0 ) {
-			pVerticalScrollBar->SetScrollRange(0);
+            pVerticalScrollBar->SetScrollRange(0);
         }
         else {
-			if (!pVerticalScrollBar->IsValid()) {
-				bArrange = true;
-			}
+            if (!pVerticalScrollBar->IsValid()) {
+                bArrange = true;
+            }
             pVerticalScrollBar->SetScrollRange(nMaxPos - nMinPos - rcClient.bottom + rcClient.top);
         }
     }
     else if( fnBar == SB_HORZ && pHorizontalScrollBar ) {
         if( nMaxPos - nMinPos - rcClient.right + rcClient.left <= 0 ) {
-			pHorizontalScrollBar->SetScrollRange(0);
+            pHorizontalScrollBar->SetScrollRange(0);
         }
         else {
-			if (!pHorizontalScrollBar->IsValid()) {
-				bArrange = true;
-			}
+            if (!pHorizontalScrollBar->IsValid()) {
+                bArrange = true;
+            }
             pHorizontalScrollBar->SetScrollRange(nMaxPos - nMinPos - rcClient.right + rcClient.left);
         }   
     }
 
-	if (bArrange) {
-		m_re->SetPos(m_re->GetPos());
-	}
+    if (bArrange) {
+        m_re->SetPos(m_re->GetPos());
+    }
 
     return TRUE;
 }
@@ -560,15 +560,15 @@ BOOL CTxtWinHost::TxSetScrollPos (INT fnBar, INT nPos, BOOL fRedraw)
 
 void CTxtWinHost::TxInvalidateRect(LPCRECT prc, BOOL fMode)
 {
-	CPoint scrollOffset = m_re->GetScrollOffset();
+    CPoint scrollOffset = m_re->GetScrollOffset();
     if( prc == NULL ) {
-		UiRect newRcClient = rcClient;
-		newRcClient.Offset(-scrollOffset.x, -scrollOffset.y);
+        UiRect newRcClient = rcClient;
+        newRcClient.Offset(-scrollOffset.x, -scrollOffset.y);
         m_re->GetWindow()->Invalidate(newRcClient);
         return;
     }
     UiRect rc = *prc;
-	rc.Offset(-scrollOffset.x, -scrollOffset.y);
+    rc.Offset(-scrollOffset.x, -scrollOffset.y);
     m_re->GetWindow()->Invalidate(rc);
 }
 
@@ -579,33 +579,33 @@ void CTxtWinHost::TxViewChange(BOOL fUpdate)
 
 BOOL CTxtWinHost::TxCreateCaret(HBITMAP hbmp, INT xWidth, INT yHeight)
 {
-	return m_re->CreateCaret(xWidth, yHeight);
+    return m_re->CreateCaret(xWidth, yHeight);
 }
 
 BOOL CTxtWinHost::TxShowCaret(BOOL fShow)
 {
-	return true; // m_re->ShowCaret(fShow);
+    return true; // m_re->ShowCaret(fShow);
 }
 
 BOOL CTxtWinHost::TxSetCaretPos(INT x, INT y)
 {
-	return m_re->SetCaretPos(x, y);
+    return m_re->SetCaretPos(x, y);
 }
 
 BOOL CTxtWinHost::TxSetTimer(UINT idTimer, UINT uTimeout)
 {
     fTimer = TRUE;
-	m_re->SetTimer(idTimer, uTimeout);
+    m_re->SetTimer(idTimer, uTimeout);
     return TRUE;
 }
 
 void CTxtWinHost::TxKillTimer(UINT idTimer)
 {
-	m_re->KillTimer(idTimer);
+    m_re->KillTimer(idTimer);
     fTimer = FALSE;
 }
 
-void CTxtWinHost::TxScrollWindowEx (INT dx, INT dy, LPCRECT lprcScroll,	LPCRECT lprcClip,	HRGN hrgnUpdate, LPRECT lprcUpdate,	UINT fuScroll)	
+void CTxtWinHost::TxScrollWindowEx (INT dx, INT dy, LPCRECT lprcScroll,    LPCRECT lprcClip,    HRGN hrgnUpdate, LPRECT lprcUpdate,    UINT fuScroll)    
 {
     return;
 }
@@ -622,14 +622,14 @@ void CTxtWinHost::TxSetFocus()
     m_re->SetFocus();
 }
 
-void CTxtWinHost::TxSetCursor(HCURSOR hcur,	BOOL fText)
+void CTxtWinHost::TxSetCursor(HCURSOR hcur,    BOOL fText)
 {
     ::SetCursor(hcur);
 }
 
 BOOL CTxtWinHost::TxScreenToClient(LPPOINT lppt)
 {
-    return ::ScreenToClient(m_re->GetWindow()->GetHWND(), lppt);	
+    return ::ScreenToClient(m_re->GetWindow()->GetHWND(), lppt);    
 }
 
 BOOL CTxtWinHost::TxClientToScreen(LPPOINT lppt)
@@ -657,7 +657,7 @@ HRESULT CTxtWinHost::TxGetClientRect(LPRECT prc)
 HRESULT CTxtWinHost::TxGetViewInset(LPRECT prc) 
 {
     prc->left = prc->right = prc->top = prc->bottom = 0;
-    return NOERROR;	
+    return NOERROR;    
 }
 
 HRESULT CTxtWinHost::TxGetCharFormat(const CHARFORMATW **ppCF)
@@ -711,7 +711,7 @@ HRESULT CTxtWinHost::TxGetAcceleratorPos(LONG *pcp)
 {
     *pcp = laccelpos;
     return S_OK;
-} 										   
+}                                            
 
 HRESULT CTxtWinHost::OnTxCharFormatChange(const CHARFORMATW *pcf)
 {
@@ -797,7 +797,7 @@ HRESULT CTxtWinHost::TxGetExtent(LPSIZEL lpExtent)
     return S_OK;
 }
 
-HRESULT	CTxtWinHost::TxGetSelectionBarWidth (LONG *plSelBarWidth)
+HRESULT    CTxtWinHost::TxGetSelectionBarWidth (LONG *plSelBarWidth)
 {
     *plSelBarWidth = lSelBarWidth;
     return S_OK;
@@ -831,22 +831,22 @@ void CTxtWinHost::SetReadOnly(BOOL fReadOnly)
 
 BOOL CTxtWinHost::IsPassword()
 {
-	return (dwStyle & ES_PASSWORD) != 0;
+    return (dwStyle & ES_PASSWORD) != 0;
 }
 
 void CTxtWinHost::SetPassword(BOOL bPassword)
 {
-	if (bPassword)
-	{
-		dwStyle |= ES_PASSWORD;
-	}
-	else
-	{
-		dwStyle &= ~ES_PASSWORD;
-	}
+    if (bPassword)
+    {
+        dwStyle |= ES_PASSWORD;
+    }
+    else
+    {
+        dwStyle &= ~ES_PASSWORD;
+    }
 
-	pserv->OnTxPropertyBitsChange(TXTBIT_USEPASSWORD, 
-		bPassword ? TXTBIT_USEPASSWORD : 0);
+    pserv->OnTxPropertyBitsChange(TXTBIT_USEPASSWORD, 
+        bPassword ? TXTBIT_USEPASSWORD : 0);
 }
 
 void CTxtWinHost::SetFont(HFONT hFont) 
@@ -855,8 +855,8 @@ void CTxtWinHost::SetFont(HFONT hFont)
     LOGFONT lf;
     ::GetObject(hFont, sizeof(LOGFONT), &lf);
     LONG yPixPerInch = ::GetDeviceCaps(m_re->GetWindow()->GetPaintDC(), LOGPIXELSY);
-	if (yPixPerInch == 0)
-		yPixPerInch = 96;
+    if (yPixPerInch == 0)
+        yPixPerInch = 96;
     cf.yHeight = -lf.lfHeight * LY_PER_INCH / yPixPerInch;
     if(lf.lfWeight >= FW_BOLD)
         cf.dwEffects |= CFE_BOLD;
@@ -963,11 +963,11 @@ void CTxtWinHost::SetClientRect(UiRect *prc)
     rcClient = *prc;
 
     LONG xPerInch = ::GetDeviceCaps(m_re->GetWindow()->GetPaintDC(), LOGPIXELSX); 
-    LONG yPerInch =	::GetDeviceCaps(m_re->GetWindow()->GetPaintDC(), LOGPIXELSY); 
-	if (xPerInch == 0)
-		xPerInch = 96;
-	if (yPerInch == 0)
-		yPerInch = 96;
+    LONG yPerInch =    ::GetDeviceCaps(m_re->GetWindow()->GetPaintDC(), LOGPIXELSY); 
+    if (xPerInch == 0)
+        xPerInch = 96;
+    if (yPerInch == 0)
+        yPerInch = 96;
     sizelExtent.cx = DXtoHimetricX(rcClient.right - rcClient.left, xPerInch);
     sizelExtent.cy = DYtoHimetricY(rcClient.bottom - rcClient.top, yPerInch);
 
@@ -984,10 +984,10 @@ BOOL CTxtWinHost::SetSaveSelection(BOOL f_SaveSelection)
     pserv->OnTxPropertyBitsChange(TXTBIT_SAVESELECTION, 
         fSaveSelection ? TXTBIT_SAVESELECTION : 0);
 
-    return fResult;		
+    return fResult;        
 }
 
-HRESULT	CTxtWinHost::OnTxInPlaceDeactivate()
+HRESULT    CTxtWinHost::OnTxInPlaceDeactivate()
 {
     HRESULT hr = pserv->OnTxInPlaceDeactivate();
 
@@ -999,7 +999,7 @@ HRESULT	CTxtWinHost::OnTxInPlaceDeactivate()
     return hr;
 }
 
-HRESULT	CTxtWinHost::OnTxInPlaceActivate(LPCRECT prcClient)
+HRESULT    CTxtWinHost::OnTxInPlaceActivate(LPCRECT prcClient)
 {
     fInplaceActive = TRUE;
 
@@ -1018,12 +1018,12 @@ BOOL CTxtWinHost::DoSetCursor(UiRect *prc, POINT *pt)
     UiRect rc = (prc != NULL) ? *prc : rcClient;
 
     // Is this in our rectangle?
-	CPoint newPt = *pt;
-	newPt.Offset(m_re->GetScrollOffset());
+    CPoint newPt = *pt;
+    newPt.Offset(m_re->GetScrollOffset());
     if (PtInRect(&rc, newPt))
     {
         UiRect *prcClient = (!fInplaceActive || prc) ? &rc : NULL;
-        pserv->OnTxSetCursor(DVASPECT_CONTENT,	-1, NULL, NULL,  m_re->GetWindow()->GetPaintDC(),
+        pserv->OnTxSetCursor(DVASPECT_CONTENT,    -1, NULL, NULL,  m_re->GetWindow()->GetPaintDC(),
             NULL, prcClient, newPt.x, newPt.y);
 
         return TRUE;
@@ -1034,33 +1034,33 @@ BOOL CTxtWinHost::DoSetCursor(UiRect *prc, POINT *pt)
 
 void CTxtWinHost::GetControlRect(LPRECT prc)
 {
-	UiRect rc = rcClient;
-	VerAlignType alignType = m_re->GetTextVerAlignType();
-	if (alignType != kVerAlignTop) {
-		LONG iWidth = rc.right - rc.left;
-		LONG iHeight = 0;
-		SIZEL szExtent = { -1, -1 };
-		GetTextServices()->TxGetNaturalSize(
-			DVASPECT_CONTENT, 
-			m_re->GetWindow()->GetPaintDC(), 
-			NULL,
-			NULL,
-			TXTNS_FITTOCONTENT,
-			&szExtent,
-			&iWidth,
-			&iHeight);
-		if (alignType == kVerAlignCenter) {
-			rc.Offset(0, (rc.bottom - rc.top - iHeight) / 2);
-		}
-		else if (alignType == kVerAlignBottom) {
-			rc.Offset(0, prc->bottom - prc->top - iHeight);
-		}
-	}
+    UiRect rc = rcClient;
+    VerAlignType alignType = m_re->GetTextVerAlignType();
+    if (alignType != kVerAlignTop) {
+        LONG iWidth = rc.right - rc.left;
+        LONG iHeight = 0;
+        SIZEL szExtent = { -1, -1 };
+        GetTextServices()->TxGetNaturalSize(
+            DVASPECT_CONTENT, 
+            m_re->GetWindow()->GetPaintDC(), 
+            NULL,
+            NULL,
+            TXTNS_FITTOCONTENT,
+            &szExtent,
+            &iWidth,
+            &iHeight);
+        if (alignType == kVerAlignCenter) {
+            rc.Offset(0, (rc.bottom - rc.top - iHeight) / 2);
+        }
+        else if (alignType == kVerAlignBottom) {
+            rc.Offset(0, prc->bottom - prc->top - iHeight);
+        }
+    }
 
-	prc->left = rc.left;
-	prc->top = rc.top;
-	prc->right = rc.right;
-	prc->bottom = rc.bottom;
+    prc->left = rc.left;
+    prc->top = rc.top;
+    prc->right = rc.right;
+    prc->bottom = rc.bottom;
 }
 
 void CTxtWinHost::SetTransparent(BOOL f_Transparent)
@@ -1098,7 +1098,7 @@ WCHAR CTxtWinHost::SetPasswordChar(WCHAR ch_PasswordChar)
 
 void CTxtWinHost::SetDisabled(BOOL fOn)
 {
-    cf.dwMask	 |= CFM_COLOR | CFM_DISABLED;
+    cf.dwMask     |= CFM_COLOR | CFM_DISABLED;
     cf.dwEffects |= CFE_AUTOCOLOR | CFE_DISABLED;
 
     if( !fOn )
@@ -1150,48 +1150,48 @@ void CTxtWinHost::SetParaFormat(PARAFORMAT2 &p)
 //
 
 RichEdit::RichEdit() : 
-	ScrollableBox(new Layout),
-	m_pTwh(nullptr), 
-	m_bVScrollBarFixing(false), 
-	m_bWantTab(true),
-	m_bNeedReturnMsg(false),
-	m_bReturnMsgWantCtrl(false),
-	m_bRich(false),
-	m_bReadOnly(false),
-	m_bPassword(false),
-	m_bWordWrap(false),
-	m_bNumberOnly(false),
-	m_bInited(false),
-	m_bAllowPrompt(false),
-	m_bSelAllEver(false),		 
-	m_bNoSelOnKillFocus(true), 
-	m_bSelAllOnFocus(false),	
-	m_bNoCaretReadonly(false),
-	m_bIsCaretVisiable(false),
-	m_bIsComposition(false),
-	m_iCaretPosX(0),
-	m_iCaretPosY(0),
-	m_iCaretWidth(0),
-	m_iCaretHeight(0),
-	m_sFontId(),
-	m_iLimitText(0),
-	m_lTwhStyle(ES_MULTILINE),
-	m_textVerAlignType(kVerAlignTop),
-	m_sCurrentColor(),
-	m_sTextColor(),
-	m_sDisabledTextColor(),
-	m_sPromptColor(),
-	m_sText(),
-	m_sPromptText(),
-	m_drawCaretFlag(),
-	m_timeFlagMap(),
-	m_linkInfo(),
-	m_sFocusedImage()
+    ScrollableBox(new Layout),
+    m_pTwh(nullptr), 
+    m_bVScrollBarFixing(false), 
+    m_bWantTab(true),
+    m_bNeedReturnMsg(false),
+    m_bReturnMsgWantCtrl(false),
+    m_bRich(false),
+    m_bReadOnly(false),
+    m_bPassword(false),
+    m_bWordWrap(false),
+    m_bNumberOnly(false),
+    m_bInited(false),
+    m_bAllowPrompt(false),
+    m_bSelAllEver(false),         
+    m_bNoSelOnKillFocus(true), 
+    m_bSelAllOnFocus(false),    
+    m_bNoCaretReadonly(false),
+    m_bIsCaretVisiable(false),
+    m_bIsComposition(false),
+    m_iCaretPosX(0),
+    m_iCaretPosY(0),
+    m_iCaretWidth(0),
+    m_iCaretHeight(0),
+    m_sFontId(),
+    m_iLimitText(0),
+    m_lTwhStyle(ES_MULTILINE),
+    m_textVerAlignType(kVerAlignTop),
+    m_sCurrentColor(),
+    m_sTextColor(),
+    m_sDisabledTextColor(),
+    m_sPromptColor(),
+    m_sText(),
+    m_sPromptText(),
+    m_drawCaretFlag(),
+    m_timeFlagMap(),
+    m_linkInfo(),
+    m_sFocusedImage()
 {
-	m_iLimitText = cInitTextMax;
-	m_sCurrentColor = GlobalManager::GetDefaultTextColor();
-	m_sTextColor = m_sCurrentColor;
-	m_sDisabledTextColor = m_sCurrentColor;
+    m_iLimitText = cInitTextMax;
+    m_sCurrentColor = GlobalManager::GetDefaultTextColor();
+    m_sTextColor = m_sCurrentColor;
+    m_sDisabledTextColor = m_sCurrentColor;
 }
 
 RichEdit::~RichEdit()
@@ -1255,13 +1255,13 @@ void RichEdit::SetReadOnly(bool bReadOnly)
 
 bool RichEdit::IsPassword()
 {
-	return m_bPassword;
+    return m_bPassword;
 }
 
 void RichEdit::SetPassword( bool bPassword )
 {
-	m_bPassword = bPassword;
-	if( m_pTwh ) m_pTwh->SetPassword(bPassword);
+    m_bPassword = bPassword;
+    if( m_pTwh ) m_pTwh->SetPassword(bPassword);
 }
 
 bool RichEdit::GetWordWrap()
@@ -1284,7 +1284,7 @@ void RichEdit::SetFont(const std::wstring& strFontId)
 {
     m_sFontId = strFontId;
     if( m_pTwh ) {
-		m_pTwh->SetFont(GlobalManager::GetFont(m_sFontId));
+        m_pTwh->SetFont(GlobalManager::GetFont(m_sFontId));
     }
 }
 
@@ -1308,9 +1308,9 @@ void RichEdit::SetFont(const std::wstring& pStrFontName, int nSize, bool bBold, 
 
 void RichEdit::SetFont(HFONT font)
 {
-	if (m_pTwh)	{
-		m_pTwh->SetFont(font);
-	}
+    if (m_pTwh)    {
+        m_pTwh->SetFont(font);
+    }
 }
 
 LONG RichEdit::GetWinStyle()
@@ -1325,16 +1325,16 @@ void RichEdit::SetWinStyle(LONG lStyle)
 
 ui::VerAlignType RichEdit::GetTextVerAlignType()
 {
-	return m_textVerAlignType;
+    return m_textVerAlignType;
 }
 
 void RichEdit::SetTextColor(const std::wstring& dwTextColor)
 {
-	if(m_sCurrentColor == dwTextColor)
-		return;
-	m_sCurrentColor = dwTextColor;
+    if(m_sCurrentColor == dwTextColor)
+        return;
+    m_sCurrentColor = dwTextColor;
 
-	DWORD dwTextColor2 = GlobalManager::GetTextColor(dwTextColor);
+    DWORD dwTextColor2 = GlobalManager::GetTextColor(dwTextColor);
     if( m_pTwh ) {
         m_pTwh->SetColor(dwTextColor2);
     }
@@ -1342,14 +1342,14 @@ void RichEdit::SetTextColor(const std::wstring& dwTextColor)
 
 void RichEdit::SetTextColor(DWORD color)
 {
-	if (m_pTwh) {
-		m_pTwh->SetColor(color);
-	}
+    if (m_pTwh) {
+        m_pTwh->SetColor(color);
+    }
 }
 
 std::wstring RichEdit::GetTextColor()
 {
-	return m_sCurrentColor;
+    return m_sCurrentColor;
 }
 
 int RichEdit::GetLimitText()
@@ -1406,38 +1406,38 @@ std::wstring RichEdit::GetText() const
 
 std::string RichEdit::GetUTF8Text() const
 {
-	std::string strOut;
-	StringHelper::UnicodeToMBCS(GetText(), strOut, CP_UTF8);
-	return strOut;
+    std::string strOut;
+    StringHelper::UnicodeToMBCS(GetText(), strOut, CP_UTF8);
+    return strOut;
 }
 
 void RichEdit::SetText(const std::wstring& strText)
 {
-	m_sText = strText;
-	if( !m_bInited )
-		return;
+    m_sText = strText;
+    if( !m_bInited )
+        return;
 
     SetSel(0, -1);
     ReplaceSel(strText, FALSE);
 
-	m_linkInfo.clear();
+    m_linkInfo.clear();
 }
 
 void RichEdit::SetTextId(const std::wstring& strTextId)
 {
-	MutiLanSupport* mutilan = MutiLanSupport::GetInstance();
-	if (mutilan)
-	{
-		std::wstring strText = mutilan->GetStringViaID(strTextId);
-		SetText(strText);
-	}
+    MutiLanSupport* mutilan = MutiLanSupport::GetInstance();
+    if (mutilan)
+    {
+        std::wstring strText = mutilan->GetStringViaID(strTextId);
+        SetText(strText);
+    }
 }
 
 void RichEdit::SetUTF8Text( const std::string& strText )
 {
-	std::wstring strOut;
-	StringHelper::MBCSToUnicode(strText, strOut, CP_UTF8);
-	SetText(strOut);
+    std::wstring strOut;
+    StringHelper::MBCSToUnicode(strText, strOut, CP_UTF8);
+    SetText(strOut);
 }
 
 bool RichEdit::GetModify() const
@@ -1485,12 +1485,12 @@ int RichEdit::SetSel(long nStartChar, long nEndChar)
 
 void RichEdit::ReplaceSel(const std::wstring& lpszNewText, bool bCanUndo)
 {
-#ifdef _UNICODE		
+#ifdef _UNICODE        
     TxSendMessage(EM_REPLACESEL, (WPARAM) bCanUndo, (LPARAM)lpszNewText.c_str(), 0); 
 #else
-	std::wstring strOut;
-	StringHelper::MBCSToUnicode(lpszNewText, strOut, CP_ACP);
-	TxSendMessage(EM_REPLACESEL, (WPARAM) bCanUndo, (LPARAM)strOut.c_str(), 0); 
+    std::wstring strOut;
+    StringHelper::MBCSToUnicode(lpszNewText, strOut, CP_ACP);
+    TxSendMessage(EM_REPLACESEL, (WPARAM) bCanUndo, (LPARAM)strOut.c_str(), 0); 
 #endif
 }
 
@@ -1732,16 +1732,16 @@ void RichEdit::Paste()
 
 BOOL RichEdit::CanPaste(UINT nFormat/* = 0*/)
 {
-	if (NULL == m_pTwh)
-		return FALSE;
-	return m_pTwh->CanPaste(nFormat);
+    if (NULL == m_pTwh)
+        return FALSE;
+    return m_pTwh->CanPaste(nFormat);
 }
 
 void RichEdit::PasteSpecial(UINT uClipFormat, DWORD dwAspect/* = 0*/, HMETAFILE hMF/* = 0*/)
 {
-	if (NULL == m_pTwh)
-		return;
-	m_pTwh->PasteSpecial(uClipFormat, dwAspect, hMF);
+    if (NULL == m_pTwh)
+        return;
+    m_pTwh->PasteSpecial(uClipFormat, dwAspect, hMF);
 }
 
 int RichEdit::GetLineCount() const
@@ -1850,7 +1850,7 @@ HRESULT RichEdit::TxSendMessage(UINT msg, WPARAM wParam, LPARAM lParam, LRESULT 
 {
     if( m_pTwh ) {
         LRESULT lr =  m_pTwh->GetTextServices()->TxSendMessage(msg, wParam, lParam, plresult);
-		return lr;
+        return lr;
     }
     return S_FALSE;
 }
@@ -1864,158 +1864,158 @@ IDropTarget* RichEdit::GetTxDropTarget()
 
 bool RichEdit::SetDropAcceptFile(bool bAccept)
 {
-	LRESULT lResult;
-	TxSendMessage(EM_SETEVENTMASK, 0, ENM_DROPFILES | ENM_LINK, // ENM_CHANGE| ENM_CORRECTTEXT | ENM_DRAGDROPDONE | ENM_DROPFILES | ENM_IMECHANGE | ENM_LINK | ENM_OBJECTPOSITIONS | ENM_PROTECTED | ENM_REQUESTRESIZE | ENM_SCROLL | ENM_SELCHANGE | ENM_UPDATE,
-		&lResult);
-	return (BOOL)lResult == FALSE;
+    LRESULT lResult;
+    TxSendMessage(EM_SETEVENTMASK, 0, ENM_DROPFILES | ENM_LINK, // ENM_CHANGE| ENM_CORRECTTEXT | ENM_DRAGDROPDONE | ENM_DROPFILES | ENM_IMECHANGE | ENM_LINK | ENM_OBJECTPOSITIONS | ENM_PROTECTED | ENM_REQUESTRESIZE | ENM_SCROLL | ENM_SELCHANGE | ENM_UPDATE,
+        &lResult);
+    return (BOOL)lResult == FALSE;
 }
 
 void RichEdit::OnTxNotify(DWORD iNotify, void *pv)
 {
-	switch(iNotify)
-	{ 
-	case EN_LINK:   
-		{
-			NMHDR* hdr = (NMHDR*) pv;
-			ENLINK* link = (ENLINK*)hdr;
+    switch(iNotify)
+    { 
+    case EN_LINK:   
+        {
+            NMHDR* hdr = (NMHDR*) pv;
+            ENLINK* link = (ENLINK*)hdr;
 
-			if(link->msg == WM_LBUTTONUP) {
-				this->SetSel(link->chrg);
-				std::wstring url = GetSelText();	
-				wprintf_s(L"[Link]%s\n", url.c_str());
+            if(link->msg == WM_LBUTTONUP) {
+                this->SetSel(link->chrg);
+                std::wstring url = GetSelText();    
+                wprintf_s(L"[Link]%s\n", url.c_str());
 
-				HWND hwnd = this->GetWindow()->GetHWND();
-				SendMessage(hwnd, WM_NOTIFY, EN_LINK, (LPARAM)&url);
-			}
-		}
-		break;
-	case EN_CHANGE:
-		OnTxTextChanged();
-		break;
-	case EN_DROPFILES:   
-	case EN_MSGFILTER:   
-	case EN_OLEOPFAILED:    
-	case EN_PROTECTED:
-	case EN_SAVECLIPBOARD:   
-	case EN_SELCHANGE:   
-	case EN_STOPNOUNDO:   
-	case EN_OBJECTPOSITIONS:   
-	case EN_DRAGDROPDONE:   
-		{
-			if (pv) {   // Fill out NMHDR portion of pv   
-				LONG nId =  GetWindowLong(this->GetWindow()->GetHWND(), GWL_ID);   
-				NMHDR  *phdr = (NMHDR *)pv;   
-				phdr->hwndFrom = this->GetWindow()->GetHWND();   
-				phdr->idFrom = nId;   
-				phdr->code = iNotify;  
+                HWND hwnd = this->GetWindow()->GetHWND();
+                SendMessage(hwnd, WM_NOTIFY, EN_LINK, (LPARAM)&url);
+            }
+        }
+        break;
+    case EN_CHANGE:
+        OnTxTextChanged();
+        break;
+    case EN_DROPFILES:   
+    case EN_MSGFILTER:   
+    case EN_OLEOPFAILED:    
+    case EN_PROTECTED:
+    case EN_SAVECLIPBOARD:   
+    case EN_SELCHANGE:   
+    case EN_STOPNOUNDO:   
+    case EN_OBJECTPOSITIONS:   
+    case EN_DRAGDROPDONE:   
+        {
+            if (pv) {   // Fill out NMHDR portion of pv   
+                LONG nId =  GetWindowLong(this->GetWindow()->GetHWND(), GWL_ID);   
+                NMHDR  *phdr = (NMHDR *)pv;   
+                phdr->hwndFrom = this->GetWindow()->GetHWND();   
+                phdr->idFrom = nId;   
+                phdr->code = iNotify;  
 
-				SendMessage(this->GetWindow()->GetHWND(), WM_NOTIFY, (WPARAM)nId, (LPARAM)pv);
-			}    
-		}
-		break;
-	}
+                SendMessage(this->GetWindow()->GetHWND(), WM_NOTIFY, (WPARAM)nId, (LPARAM)pv);
+            }    
+        }
+        break;
+    }
 }
 
 bool RichEdit::OnTxTextChanged()
 {
-	if (m_pWindow != NULL) {
-		m_pWindow->SendNotify(this, kEventTextChange);
-	}
-	return true;
+    if (m_pWindow != NULL) {
+        m_pWindow->SendNotify(this, kEventTextChange);
+    }
+    return true;
 }
 
 ITextHost* RichEdit::GetTextHost()
 {
-	if (NULL == m_pTwh)
-		return NULL;
-	return m_pTwh->GetTextHost();
+    if (NULL == m_pTwh)
+        return NULL;
+    return m_pTwh->GetTextHost();
 }
 
 ITextServices* RichEdit::GetTextServices()
 {
-	if (NULL == m_pTwh)
-		return NULL;
-	return m_pTwh->GetTextServices2();
+    if (NULL == m_pTwh)
+        return NULL;
+    return m_pTwh->GetTextServices2();
 }
 
 BOOL RichEdit::SetOleCallback(IRichEditOleCallback* pCallback)
 {
-	if (NULL == m_pTwh)
-		return FALSE;
-	return m_pTwh->SetOleCallback(pCallback);
+    if (NULL == m_pTwh)
+        return FALSE;
+    return m_pTwh->SetOleCallback(pCallback);
 }
 
 CSize RichEdit::GetNaturalSize(LONG width, LONG height)
 {
-	if (width < 0) {
-		width = 0;
-	}
-	if (height < 0) {
-		height = 0;
-	}	
-	CSize sz(0,0);
-	if (m_cbGetNaturalSize != nullptr && m_cbGetNaturalSize(width, height, sz))
-		return sz;
-	LONG lWidth = width;
-	LONG lHeight = height;
-	SIZEL szExtent = { -1, -1 };
+    if (width < 0) {
+        width = 0;
+    }
+    if (height < 0) {
+        height = 0;
+    }    
+    CSize sz(0,0);
+    if (m_cbGetNaturalSize != nullptr && m_cbGetNaturalSize(width, height, sz))
+        return sz;
+    LONG lWidth = width;
+    LONG lHeight = height;
+    SIZEL szExtent = { -1, -1 };
 
-	if (m_pTwh) {
-		m_pTwh->GetTextServices()->TxGetNaturalSize(
-			DVASPECT_CONTENT,
-			GetWindow()->GetPaintDC(),
-			NULL,
-			NULL,
-			TXTNS_FITTOCONTENT,
-			&szExtent,
-			&lWidth,
-			&lHeight);
-	}
-	sz.cx = (int)lWidth;
-	sz.cy = (int)lHeight;
-	return sz;
+    if (m_pTwh) {
+        m_pTwh->GetTextServices()->TxGetNaturalSize(
+            DVASPECT_CONTENT,
+            GetWindow()->GetPaintDC(),
+            NULL,
+            NULL,
+            TXTNS_FITTOCONTENT,
+            &szExtent,
+            &lWidth,
+            &lHeight);
+    }
+    sz.cx = (int)lWidth;
+    sz.cy = (int)lHeight;
+    return sz;
 }
 
 void RichEdit::SetImmStatus(BOOL bOpen)
 {
-	HWND hwnd = GetWindow()->GetHWND();
-	if (hwnd != NULL)
-	{
-		HIMC hImc = ::ImmGetContext(hwnd);
-		if (hImc != NULL) {
-			if (ImmGetOpenStatus(hImc)) {
-				if (!bOpen)
-					ImmSetOpenStatus(hImc, FALSE);
-			}
-			else {
-				if (bOpen)
-					ImmSetOpenStatus(hImc, TRUE);
-			}
-			ImmReleaseContext(hwnd, hImc);
-		}
-	}
+    HWND hwnd = GetWindow()->GetHWND();
+    if (hwnd != NULL)
+    {
+        HIMC hImc = ::ImmGetContext(hwnd);
+        if (hImc != NULL) {
+            if (ImmGetOpenStatus(hImc)) {
+                if (!bOpen)
+                    ImmSetOpenStatus(hImc, FALSE);
+            }
+            else {
+                if (bOpen)
+                    ImmSetOpenStatus(hImc, TRUE);
+            }
+            ImmReleaseContext(hwnd, hImc);
+        }
+    }
 }
 
 void RichEdit::SetTimer(UINT idTimer, UINT uTimeout)
 {
-	auto timeFlag = m_timeFlagMap.find(idTimer);
-	if (timeFlag != m_timeFlagMap.end()) {
-		timeFlag->second.Cancel();
-	}
+    auto timeFlag = m_timeFlagMap.find(idTimer);
+    if (timeFlag != m_timeFlagMap.end()) {
+        timeFlag->second.Cancel();
+    }
 
-	auto callback = [this, idTimer]() {
-		this->TxSendMessage(WM_TIMER, idTimer, 0, 0);
-	};
-	TimerManager::GetInstance()->AddCancelableTimer(m_timeFlagMap[idTimer].GetWeakFlag(), callback, uTimeout, TimerManager::REPEAT_FOREVER);
+    auto callback = [this, idTimer]() {
+        this->TxSendMessage(WM_TIMER, idTimer, 0, 0);
+    };
+    TimerManager::GetInstance()->AddCancelableTimer(m_timeFlagMap[idTimer].GetWeakFlag(), callback, uTimeout, TimerManager::REPEAT_FOREVER);
 }
 
 void RichEdit::KillTimer(UINT idTimer)
 {
-	auto timeFlag = m_timeFlagMap.find(idTimer);
-	if (timeFlag != m_timeFlagMap.end()) {
-		timeFlag->second.Cancel();
-		m_timeFlagMap.erase(timeFlag);
-	}
+    auto timeFlag = m_timeFlagMap.find(idTimer);
+    if (timeFlag != m_timeFlagMap.end()) {
+        timeFlag->second.Cancel();
+        m_timeFlagMap.erase(timeFlag);
+    }
 }
 
 // 多行非rich格式的richedit有一个滚动条bug，在最后一行是空行时，LineDown和SetScrollPos无法滚动到最后
@@ -2120,83 +2120,83 @@ void RichEdit::EndRight()
 
 void RichEdit::DoInit()
 {
-	if (m_bInited)
-		return;
+    if (m_bInited)
+        return;
 
-	CREATESTRUCT cs;
-	cs.style = m_lTwhStyle;
-	cs.x = 0;
-	cs.y = 0;
-	cs.cy = 0;
-	cs.cx = 0;
-	cs.lpszName = m_sText.c_str();
-	CreateHost(this, &cs, &m_pTwh);
-	if (m_pTwh) {
-		m_pTwh->SetTransparent(TRUE);
-		LRESULT lResult;
-		m_pTwh->GetTextServices()->TxSendMessage(EM_SETLANGOPTIONS, 0, 0, &lResult);
-		m_pTwh->GetTextServices()->TxSendMessage(EM_SETEVENTMASK, 0, ENM_CHANGE, &lResult);
-		m_pTwh->OnTxInPlaceActivate(NULL);
-		if (m_pHorizontalScrollBar) {
-			m_pHorizontalScrollBar->SetScrollRange(0);
-		}
-		if (m_pVerticalScrollBar) {
-			m_pVerticalScrollBar->SetScrollRange(0);
-		}
-	}
+    CREATESTRUCT cs;
+    cs.style = m_lTwhStyle;
+    cs.x = 0;
+    cs.y = 0;
+    cs.cy = 0;
+    cs.cx = 0;
+    cs.lpszName = m_sText.c_str();
+    CreateHost(this, &cs, &m_pTwh);
+    if (m_pTwh) {
+        m_pTwh->SetTransparent(TRUE);
+        LRESULT lResult;
+        m_pTwh->GetTextServices()->TxSendMessage(EM_SETLANGOPTIONS, 0, 0, &lResult);
+        m_pTwh->GetTextServices()->TxSendMessage(EM_SETEVENTMASK, 0, ENM_CHANGE, &lResult);
+        m_pTwh->OnTxInPlaceActivate(NULL);
+        if (m_pHorizontalScrollBar) {
+            m_pHorizontalScrollBar->SetScrollRange(0);
+        }
+        if (m_pVerticalScrollBar) {
+            m_pVerticalScrollBar->SetScrollRange(0);
+        }
+    }
 
-	m_bInited = true;
+    m_bInited = true;
 }
 
 void RichEdit::SetEnabled(bool bEnable /*= true*/)
 {
-	if (m_bEnabled == bEnable)
-		return;
-	m_bEnabled = bEnable;
+    if (m_bEnabled == bEnable)
+        return;
+    m_bEnabled = bEnable;
 
-	if (bEnable) {
-		m_uButtonState = kControlStateNormal;
-		SetTextColor(m_sTextColor);
-	}
-	else {
-		m_uButtonState = kControlStateDisabled;
-		SetTextColor(m_sDisabledTextColor);
-	}
+    if (bEnable) {
+        m_uButtonState = kControlStateNormal;
+        SetTextColor(m_sTextColor);
+    }
+    else {
+        m_uButtonState = kControlStateDisabled;
+        SetTextColor(m_sDisabledTextColor);
+    }
 }
 
 CSize RichEdit::EstimateSize(CSize szAvailable)
 {
-	CSize size(GetFixedWidth(), GetFixedHeight());
-	if (size.cx == DUI_LENGTH_AUTO || size.cy == DUI_LENGTH_AUTO) {
-		LONG iWidth = size.cx;
-		LONG iHeight = size.cy;
-		if (size.cx == DUI_LENGTH_AUTO) {
-			ASSERT(size.cy != DUI_LENGTH_AUTO);
-			iWidth = 0;
-		}
-		else if (size.cy == DUI_LENGTH_AUTO) {
-			ASSERT(size.cx != DUI_LENGTH_AUTO);
-			iHeight = 0;
-		}
+    CSize size(GetFixedWidth(), GetFixedHeight());
+    if (size.cx == DUI_LENGTH_AUTO || size.cy == DUI_LENGTH_AUTO) {
+        LONG iWidth = size.cx;
+        LONG iHeight = size.cy;
+        if (size.cx == DUI_LENGTH_AUTO) {
+            ASSERT(size.cy != DUI_LENGTH_AUTO);
+            iWidth = 0;
+        }
+        else if (size.cy == DUI_LENGTH_AUTO) {
+            ASSERT(size.cx != DUI_LENGTH_AUTO);
+            iHeight = 0;
+        }
 
-		SIZEL szExtent = { -1, -1 };
-		m_pTwh->GetTextServices()->TxGetNaturalSize(
-			DVASPECT_CONTENT, 
-			GetWindow()->GetPaintDC(), 
-			NULL,
-			NULL,
-			TXTNS_FITTOCONTENT,
-			&szExtent,
-			&iWidth,
-			&iHeight);
-		
-		if (size.cx == DUI_LENGTH_AUTO) {
-			size.cx = iWidth + m_pLayout->GetPadding().left + m_pLayout->GetPadding().right;
-		}
-		else if (size.cy == DUI_LENGTH_AUTO) {
-			size.cy = iHeight + m_pLayout->GetPadding().top + m_pLayout->GetPadding().bottom;
-		}
-	}
+        SIZEL szExtent = { -1, -1 };
+        m_pTwh->GetTextServices()->TxGetNaturalSize(
+            DVASPECT_CONTENT, 
+            GetWindow()->GetPaintDC(), 
+            NULL,
+            NULL,
+            TXTNS_FITTOCONTENT,
+            &szExtent,
+            &iWidth,
+            &iHeight);
+        
+        if (size.cx == DUI_LENGTH_AUTO) {
+            size.cx = iWidth + m_pLayout->GetPadding().left + m_pLayout->GetPadding().right;
+        }
+        else if (size.cy == DUI_LENGTH_AUTO) {
+            size.cy = iHeight + m_pLayout->GetPadding().top + m_pLayout->GetPadding().bottom;
+        }
+    }
     return size;
 }
 
@@ -2241,7 +2241,7 @@ void RichEdit::SetPos(UiRect rc)
             else {
                 if( m_bVScrollBarFixing ) {
                     //m_pVerticalScrollBar->SetVisible(false);
-					m_pVerticalScrollBar->SetScrollRange(0);
+                    m_pVerticalScrollBar->SetScrollRange(0);
                     m_bVScrollBarFixing = false;
                 }
             }
@@ -2257,8 +2257,8 @@ void RichEdit::SetPos(UiRect rc)
         m_pHorizontalScrollBar->SetPos(rcScrollBarPos);
     }
 
-	for( auto it = m_items.begin(); it != m_items.end(); it++ ) {
-		auto pControl = *it;
+    for( auto it = m_items.begin(); it != m_items.end(); it++ ) {
+        auto pControl = *it;
         if( !pControl->IsVisible() ) continue;
         if( pControl->IsFloat() ) {
             Layout::SetFloatPos(pControl, GetPos());
@@ -2271,254 +2271,254 @@ void RichEdit::SetPos(UiRect rc)
 
 UINT RichEdit::GetControlFlags() const
 {
-	return IsEnabled() ? UIFLAG_TABSTOP : UIFLAG_DEFAULT;
+    return IsEnabled() ? UIFLAG_TABSTOP : UIFLAG_DEFAULT;
 }
 
 void RichEdit::HandleMessage(EventArgs& event)
 {
-	if ((!IsMouseEnabled() && event.Type > kEventMouseBegin && event.Type < kEventMouseEnd) ||
-		(!IsEnabled())){
-		if (m_pParent != NULL) m_pParent->HandleMessageTemplate(event);
-		else Control::HandleMessage(event);
-		return;
-	}
+    if ((!IsMouseEnabled() && event.Type > kEventMouseBegin && event.Type < kEventMouseEnd) ||
+        (!IsEnabled())){
+        if (m_pParent != NULL) m_pParent->HandleMessageTemplate(event);
+        else Control::HandleMessage(event);
+        return;
+    }
 
-	if (event.Type == kEventSetCursor)
-	{
-		OnSetCursor(event);
-		return;
-	}
+    if (event.Type == kEventSetCursor)
+    {
+        OnSetCursor(event);
+        return;
+    }
 
-	if (event.Type == kEventChar) {
-		OnChar(event);
-		return;
-	}
-	if (event.Type == kEventKeyDown) {
-		OnKeyDown(event);
-		return;
-	}
+    if (event.Type == kEventChar) {
+        OnChar(event);
+        return;
+    }
+    if (event.Type == kEventKeyDown) {
+        OnKeyDown(event);
+        return;
+    }
 
-	if (event.Type == kEventMouseMove) {
-		OnMouseMessage(WM_MOUSEMOVE, event);
-		return;
-	}
-	if (event.Type == kEventMouseScrollWheel) {
-		if (::GetAsyncKeyState(VK_CONTROL) < 0)
-			return;
-		
-		ScrollableBox::HandleMessage(event);
-		//OnMouseMessage(WM_MOUSEWHEEL, event);
-		return;
-	}
+    if (event.Type == kEventMouseMove) {
+        OnMouseMessage(WM_MOUSEMOVE, event);
+        return;
+    }
+    if (event.Type == kEventMouseScrollWheel) {
+        if (::GetAsyncKeyState(VK_CONTROL) < 0)
+            return;
+        
+        ScrollableBox::HandleMessage(event);
+        //OnMouseMessage(WM_MOUSEWHEEL, event);
+        return;
+    }
 
-	if (event.Type == kEventMouseButtonDown || event.Type == kEventPointDown) {
-		if (m_linkInfo.size() > 0)	{
-			std::wstring strLink;
-			if (HittestCustomLink(event.ptMouse, strLink))
-			{
-				//::SetCursor(::LoadCursor(NULL, MAKEINTRESOURCE(IDC_HAND)));
-				if (m_pWindow != NULL)
-					m_pWindow->SendNotify((Control*)this, kEventCustomLinkClick);
-				return;
-			}
-		}
+    if (event.Type == kEventMouseButtonDown || event.Type == kEventPointDown) {
+        if (m_linkInfo.size() > 0)    {
+            std::wstring strLink;
+            if (HittestCustomLink(event.ptMouse, strLink))
+            {
+                //::SetCursor(::LoadCursor(NULL, MAKEINTRESOURCE(IDC_HAND)));
+                if (m_pWindow != NULL)
+                    m_pWindow->SendNotify((Control*)this, kEventCustomLinkClick);
+                return;
+            }
+        }
 
-		if (event.Type == kEventPointDown) {
-			OnScreenKeyboardManager::GetInstance()->ShowOSK(true);
-		}
-		OnMouseMessage(WM_LBUTTONDOWN, event);
-		return;
-	}
-	if (event.Type == kEventMouseButtonUp || event.Type == kEventPointUp) {
-		if (m_bEnabled && !m_bSelAllEver) {
-			m_bSelAllEver = true;
+        if (event.Type == kEventPointDown) {
+            OnScreenKeyboardManager::GetInstance()->ShowOSK(true);
+        }
+        OnMouseMessage(WM_LBUTTONDOWN, event);
+        return;
+    }
+    if (event.Type == kEventMouseButtonUp || event.Type == kEventPointUp) {
+        if (m_bEnabled && !m_bSelAllEver) {
+            m_bSelAllEver = true;
 
-			if (m_bSelAllOnFocus) {
-				SetSelAll();
-				if (m_lTwhStyle & ES_MULTILINE)
-					HomeUp();
-				else
-					HomeLeft();
-			}
-		}
+            if (m_bSelAllOnFocus) {
+                SetSelAll();
+                if (m_lTwhStyle & ES_MULTILINE)
+                    HomeUp();
+                else
+                    HomeLeft();
+            }
+        }
 
-		OnMouseMessage(WM_LBUTTONUP, event);
-		return;
-	}
-	if (event.Type == kEventInternalDoubleClick) {
-		if (m_bReadOnly) {
-			SetSelAll();
-			return;
-		}
+        OnMouseMessage(WM_LBUTTONUP, event);
+        return;
+    }
+    if (event.Type == kEventInternalDoubleClick) {
+        if (m_bReadOnly) {
+            SetSelAll();
+            return;
+        }
 
-		OnMouseMessage(WM_LBUTTONDBLCLK, event);
-		return;
-	}
-	if (event.Type == kEventMouseRightButtonDown) {
-		OnMouseMessage(WM_RBUTTONDOWN, event);
-		return;
-	}
-	if (event.Type == kEventMouseRightButtonUp) {
-		OnMouseMessage(WM_RBUTTONUP, event);
-		return;
-	}
+        OnMouseMessage(WM_LBUTTONDBLCLK, event);
+        return;
+    }
+    if (event.Type == kEventMouseRightButtonDown) {
+        OnMouseMessage(WM_RBUTTONDOWN, event);
+        return;
+    }
+    if (event.Type == kEventMouseRightButtonUp) {
+        OnMouseMessage(WM_RBUTTONUP, event);
+        return;
+    }
 
-	if (event.Type == kEventImeStartComposition) {
-		OnImeStartComposition(event);
-		return;
-	}
-	if (event.Type == kEventImeEndComposition) {
-		OnImeEndComposition(event);
-		return;
-	}
+    if (event.Type == kEventImeStartComposition) {
+        OnImeStartComposition(event);
+        return;
+    }
+    if (event.Type == kEventImeEndComposition) {
+        OnImeEndComposition(event);
+        return;
+    }
 
-	if (event.Type == kEventInternalSetFocus) {
-		OnSetFocus(event);
-		return;
-	}
-	if (event.Type == kEventInternalKillFocus) {
-		OnKillFocus(event);
-		OnScreenKeyboardManager::GetInstance()->ShowOSK(false);
-		return;
-	}
+    if (event.Type == kEventInternalSetFocus) {
+        OnSetFocus(event);
+        return;
+    }
+    if (event.Type == kEventInternalKillFocus) {
+        OnKillFocus(event);
+        OnScreenKeyboardManager::GetInstance()->ShowOSK(false);
+        return;
+    }
 
-	ScrollableBox::HandleMessage(event);
+    ScrollableBox::HandleMessage(event);
 }
 
 void RichEdit::OnSetCursor(EventArgs& event)
 {
-	std::wstring strLink;
-	if (HittestCustomLink(event.ptMouse, strLink))
-	{
-		::SetCursor(::LoadCursor(NULL, MAKEINTRESOURCE(IDC_HAND)));
-		return;
-	}
-	if (m_pTwh && m_pTwh->DoSetCursor(NULL, &event.ptMouse)) {
-		return;
-	}
-	else {
-		::SetCursor(::LoadCursor(NULL, MAKEINTRESOURCE(IDC_IBEAM)));
-	}
+    std::wstring strLink;
+    if (HittestCustomLink(event.ptMouse, strLink))
+    {
+        ::SetCursor(::LoadCursor(NULL, MAKEINTRESOURCE(IDC_HAND)));
+        return;
+    }
+    if (m_pTwh && m_pTwh->DoSetCursor(NULL, &event.ptMouse)) {
+        return;
+    }
+    else {
+        ::SetCursor(::LoadCursor(NULL, MAKEINTRESOURCE(IDC_IBEAM)));
+    }
 }
 
 void RichEdit::OnSetFocus(EventArgs& event)
 {
-	if (m_pTwh) {
-		m_pTwh->OnTxInPlaceActivate(NULL);
-		m_pTwh->GetTextServices()->TxSendMessage(WM_SETFOCUS, 0, 0, 0);
-		ShowCaret(true);
-	}
-	m_bFocused = true;
-	Invalidate();
+    if (m_pTwh) {
+        m_pTwh->OnTxInPlaceActivate(NULL);
+        m_pTwh->GetTextServices()->TxSendMessage(WM_SETFOCUS, 0, 0, 0);
+        ShowCaret(true);
+    }
+    m_bFocused = true;
+    Invalidate();
 }
 
 void RichEdit::OnKillFocus(EventArgs& event)
 {
-	if (m_pTwh) {
-		m_pTwh->OnTxInPlaceActivate(NULL);
-		m_pTwh->GetTextServices()->TxSendMessage(WM_KILLFOCUS, 0, 0, 0);
-		ShowCaret(false);
-	}
+    if (m_pTwh) {
+        m_pTwh->OnTxInPlaceActivate(NULL);
+        m_pTwh->GetTextServices()->TxSendMessage(WM_KILLFOCUS, 0, 0, 0);
+        ShowCaret(false);
+    }
 
-	m_bFocused = false;
-	m_bSelAllEver = false;
-	if (m_bNoSelOnKillFocus && m_bReadOnly && m_bEnabled) {
-		SetSelNone();
-	}
-	if (m_bSelAllOnFocus && m_bEnabled) {
-		SetSelNone();
-	}
+    m_bFocused = false;
+    m_bSelAllEver = false;
+    if (m_bNoSelOnKillFocus && m_bReadOnly && m_bEnabled) {
+        SetSelNone();
+    }
+    if (m_bSelAllOnFocus && m_bEnabled) {
+        SetSelNone();
+    }
 
-	Invalidate();
+    Invalidate();
 }
 
 void RichEdit::OnChar(EventArgs& event)
 {
-	//TAB
-	if (::GetKeyState(VK_TAB) < 0 && !m_bWantTab) {
-		if (m_pWindow != NULL)
-			m_pWindow->SendNotify((Control*)this, kEventTab);
+    //TAB
+    if (::GetKeyState(VK_TAB) < 0 && !m_bWantTab) {
+        if (m_pWindow != NULL)
+            m_pWindow->SendNotify((Control*)this, kEventTab);
 
-		return;
-	}
-	//Number
-	if (m_bNumberOnly) {
-		if (event.wParam < '0' || event.wParam > '9')
-			return;
-	}
+        return;
+    }
+    //Number
+    if (m_bNumberOnly) {
+        if (event.wParam < '0' || event.wParam > '9')
+            return;
+    }
 
-	TxSendMessage(WM_CHAR, event.wParam, event.lParam, NULL);
+    TxSendMessage(WM_CHAR, event.wParam, event.lParam, NULL);
 }
 
 void RichEdit::OnKeyDown(EventArgs& event)
 {
-	if (event.wParam == VK_RETURN && ::GetAsyncKeyState(VK_SHIFT) >= 0)	{
-		if (m_bNeedReturnMsg && ((m_bReturnMsgWantCtrl && ::GetAsyncKeyState(VK_CONTROL) < 0) ||
-			(!m_bReturnMsgWantCtrl && ::GetAsyncKeyState(VK_CONTROL) >= 0)))
-		{
-			if (m_pWindow != NULL)
-				m_pWindow->SendNotify((Control*)this, kEventReturn);
-			return;
-		}
-	}
-	else if (m_bNumberOnly && event.wParam == 'V' && ::GetKeyState(VK_CONTROL) < 0) {
-		std::wstring strClipText;
-		GetClipboardText(strClipText);
-		if (!strClipText.empty()) {
-			std::wstring strNum;
-			for (auto it = strClipText.begin(); it != strClipText.end(); it++)
-			{
-				if ((*it) <= L'9' && (*it) >= L'0') {
-					strNum.push_back((*it));
-				}
-			}
-			if (strNum.empty())
-				return;
+    if (event.wParam == VK_RETURN && ::GetAsyncKeyState(VK_SHIFT) >= 0)    {
+        if (m_bNeedReturnMsg && ((m_bReturnMsgWantCtrl && ::GetAsyncKeyState(VK_CONTROL) < 0) ||
+            (!m_bReturnMsgWantCtrl && ::GetAsyncKeyState(VK_CONTROL) >= 0)))
+        {
+            if (m_pWindow != NULL)
+                m_pWindow->SendNotify((Control*)this, kEventReturn);
+            return;
+        }
+    }
+    else if (m_bNumberOnly && event.wParam == 'V' && ::GetKeyState(VK_CONTROL) < 0) {
+        std::wstring strClipText;
+        GetClipboardText(strClipText);
+        if (!strClipText.empty()) {
+            std::wstring strNum;
+            for (auto it = strClipText.begin(); it != strClipText.end(); it++)
+            {
+                if ((*it) <= L'9' && (*it) >= L'0') {
+                    strNum.push_back((*it));
+                }
+            }
+            if (strNum.empty())
+                return;
 
-			SetClipBoardText(strNum); //修改剪切板内容为纯数字
-			nbase::ThreadManager::PostTask([strClipText]() { SetClipBoardText(strClipText); }); //粘贴完后又把剪切板内容改回来
-		}
-	}
+            SetClipBoardText(strNum); //修改剪切板内容为纯数字
+            nbase::ThreadManager::PostTask([strClipText]() { SetClipBoardText(strClipText); }); //粘贴完后又把剪切板内容改回来
+        }
+    }
 
-	TxSendMessage(WM_KEYDOWN, event.wParam, event.lParam, NULL);
+    TxSendMessage(WM_KEYDOWN, event.wParam, event.lParam, NULL);
 }
 
 void RichEdit::OnImeStartComposition(EventArgs& event)
 {
-	HWND hWnd = GetWindow()->GetHWND();
-	if (hWnd == NULL)
-		return;
+    HWND hWnd = GetWindow()->GetHWND();
+    if (hWnd == NULL)
+        return;
 
-	HIMC hImc = ::ImmGetContext(hWnd);
-	if (hImc == NULL)
-		return;
+    HIMC hImc = ::ImmGetContext(hWnd);
+    if (hImc == NULL)
+        return;
 
-	COMPOSITIONFORM	cfs;
-	CPoint ptScrollOffset = GetScrollOffset();
-	POINT pt;
-	pt.x = m_iCaretPosX - ptScrollOffset.x;
-	pt.y = m_iCaretPosY - ptScrollOffset.y;
+    COMPOSITIONFORM    cfs;
+    CPoint ptScrollOffset = GetScrollOffset();
+    POINT pt;
+    pt.x = m_iCaretPosX - ptScrollOffset.x;
+    pt.y = m_iCaretPosY - ptScrollOffset.y;
 
-	//pt.y += (m_iCaretHeight + lf.lfHeight) / 4;
-	cfs.dwStyle = CFS_POINT;
-	if (pt.x < 1) pt.x = 1;
-	if (pt.y < 1) pt.y = 1;
-	cfs.ptCurrentPos = pt;
-	::ImmSetCompositionWindow(hImc, &cfs);
-	::ImmReleaseContext(hWnd, hImc);
-	m_bIsComposition = true;
+    //pt.y += (m_iCaretHeight + lf.lfHeight) / 4;
+    cfs.dwStyle = CFS_POINT;
+    if (pt.x < 1) pt.x = 1;
+    if (pt.y < 1) pt.y = 1;
+    cfs.ptCurrentPos = pt;
+    ::ImmSetCompositionWindow(hImc, &cfs);
+    ::ImmReleaseContext(hWnd, hImc);
+    m_bIsComposition = true;
 }
 
 void RichEdit::OnImeEndComposition(EventArgs& event)
 {
-	m_bIsComposition = false;
+    m_bIsComposition = false;
 }
 
 void RichEdit::OnMouseMessage(UINT uMsg, EventArgs& event)
 {
-	CPoint pt(GET_X_LPARAM(event.lParam), GET_Y_LPARAM(event.lParam));
-	pt.Offset(GetScrollOffset());
-	TxSendMessage(uMsg, event.wParam, MAKELPARAM(pt.x, pt.y), NULL);
+    CPoint pt(GET_X_LPARAM(event.lParam), GET_Y_LPARAM(event.lParam));
+    pt.Offset(GetScrollOffset());
+    TxSendMessage(uMsg, event.wParam, MAKELPARAM(pt.x, pt.y), NULL);
 }
 
 void RichEdit::Paint(IRenderContext* pRender, const UiRect& rcPaint)
@@ -2534,22 +2534,22 @@ void RichEdit::Paint(IRenderContext* pRender, const UiRect& rcPaint)
         // Remember wparam is actually the hdc and lparam is the update
         // rect because this message has been preprocessed by the window.
         m_pTwh->GetTextServices()->TxDraw(
-            DVASPECT_CONTENT,  		// Draw Aspect
-            /*-1*/0,				// Lindex
-            NULL,					// Info for drawing optimazation
-            NULL,					// target device information
-            pRender->GetDC(),			        // Draw device HDC
-            NULL, 				   	// Target device HDC
-            (RECTL*)&rc,			// Bounding client rectangle
-            NULL, 		            // Clipping rectangle for metafiles
-            (UiRect*)&rcPaint,		// Update rectangle
-            NULL, 	   				// Call back function
-            NULL,					// Call back parameter
-            0);				        // What view of the object
+            DVASPECT_CONTENT,          // Draw Aspect
+            /*-1*/0,                // Lindex
+            NULL,                    // Info for drawing optimazation
+            NULL,                    // target device information
+            pRender->GetDC(),                    // Draw device HDC
+            NULL,                        // Target device HDC
+            (RECTL*)&rc,            // Bounding client rectangle
+            NULL,                     // Clipping rectangle for metafiles
+            (UiRect*)&rcPaint,        // Update rectangle
+            NULL,                        // Call back function
+            NULL,                    // Call back parameter
+            0);                        // What view of the object
 
         if( m_bVScrollBarFixing ) {
             LONG lWidth = rc.right - rc.left + m_pVerticalScrollBar->GetFixedWidth();
-			//LONG lWidth = rc.right - rc.left;
+            //LONG lWidth = rc.right - rc.left;
             LONG lHeight = 0;
             SIZEL szExtent = { -1, -1 };
             m_pTwh->GetTextServices()->TxGetNaturalSize(
@@ -2562,19 +2562,19 @@ void RichEdit::Paint(IRenderContext* pRender, const UiRect& rcPaint)
                 &lWidth,
                 &lHeight);
 
-			if (lHeight <= rc.bottom - rc.top) {
-				Arrange();
-			}
-		}
-	}
+            if (lHeight <= rc.bottom - rc.top) {
+                Arrange();
+            }
+        }
+    }
 }
 
 void RichEdit::PaintChild(IRenderContext* pRender, const UiRect& rcPaint)
 {
-	UiRect rcTemp;
-	if (!::IntersectRect(&rcTemp, &rcPaint, &m_rcItem)) return;
+    UiRect rcTemp;
+    if (!::IntersectRect(&rcTemp, &rcPaint, &m_rcItem)) return;
 
-	PaintCaret(pRender, rcPaint);
+    PaintCaret(pRender, rcPaint);
 
     if( m_items.size() > 0 ) {
         UiRect rc = m_rcItem;
@@ -2586,30 +2586,30 @@ void RichEdit::PaintChild(IRenderContext* pRender, const UiRect& rcPaint)
         if( m_pHorizontalScrollBar && m_pHorizontalScrollBar->IsValid() ) rc.bottom -= m_pHorizontalScrollBar->GetFixedHeight();
 
         if( !::IntersectRect(&rcTemp, &rcPaint, &rc) ) {
-			for( auto it = m_items.begin(); it != m_items.end(); it++ ) {
-				auto pControl = *it;
+            for( auto it = m_items.begin(); it != m_items.end(); it++ ) {
+                auto pControl = *it;
                 if( !pControl->IsVisible() ) continue;
-				UiRect controlPos = pControl->GetPos();
-				if (!::IntersectRect(&rcTemp, &rcPaint, &controlPos)) continue;
+                UiRect controlPos = pControl->GetPos();
+                if (!::IntersectRect(&rcTemp, &rcPaint, &controlPos)) continue;
                 if( pControl ->IsFloat() ) {
-					if( !::IntersectRect(&rcTemp, &m_rcItem, &controlPos )) continue;
+                    if( !::IntersectRect(&rcTemp, &m_rcItem, &controlPos )) continue;
                     pControl->AlphaPaint(pRender, rcPaint);
                 }
             }
         }
         else {
-			AutoClip childClip(pRender, rcTemp);
-			for( auto it = m_items.begin(); it != m_items.end(); it++ ) {
-				auto pControl = *it;
+            AutoClip childClip(pRender, rcTemp);
+            for( auto it = m_items.begin(); it != m_items.end(); it++ ) {
+                auto pControl = *it;
                 if( !pControl->IsVisible() ) continue;
-				UiRect controlPos = pControl->GetPos();
-				if (!::IntersectRect(&rcTemp, &rcPaint, &controlPos)) continue;
+                UiRect controlPos = pControl->GetPos();
+                if (!::IntersectRect(&rcTemp, &rcPaint, &controlPos)) continue;
                 if( pControl ->IsFloat() ) {
-					if( !::IntersectRect(&rcTemp, &m_rcItem, &controlPos) ) continue;
+                    if( !::IntersectRect(&rcTemp, &m_rcItem, &controlPos) ) continue;
                     pControl->AlphaPaint(pRender, rcPaint);
                 }
                 else {
-					if( !::IntersectRect(&rcTemp, &rc, &controlPos) ) continue;
+                    if( !::IntersectRect(&rcTemp, &rc, &controlPos) ) continue;
                     pControl->AlphaPaint(pRender, rcPaint);
                 }
             }
@@ -2617,15 +2617,15 @@ void RichEdit::PaintChild(IRenderContext* pRender, const UiRect& rcPaint)
     }
 
     if( m_pVerticalScrollBar != NULL && m_pVerticalScrollBar->IsVisible() ) {
-		UiRect verBarPos = m_pVerticalScrollBar->GetPos();
-		if( ::IntersectRect(&rcTemp, &rcPaint, &verBarPos) ) {
+        UiRect verBarPos = m_pVerticalScrollBar->GetPos();
+        if( ::IntersectRect(&rcTemp, &rcPaint, &verBarPos) ) {
             m_pVerticalScrollBar->AlphaPaint(pRender, rcPaint);
         }
     }
 
     if( m_pHorizontalScrollBar != NULL && m_pHorizontalScrollBar->IsVisible() ) {
-		UiRect horBarPos = m_pVerticalScrollBar->GetPos();
-		if( ::IntersectRect(&rcTemp, &rcPaint, &horBarPos) ) {
+        UiRect horBarPos = m_pVerticalScrollBar->GetPos();
+        if( ::IntersectRect(&rcTemp, &rcPaint, &horBarPos) ) {
             m_pHorizontalScrollBar->AlphaPaint(pRender, rcPaint);
         }
     }
@@ -2633,539 +2633,539 @@ void RichEdit::PaintChild(IRenderContext* pRender, const UiRect& rcPaint)
 
 void RichEdit::SetAttribute(const std::wstring& strName, const std::wstring& strValue)
 {
-	if (strName == _T("vscrollbar")) {
-		if (strValue == _T("true")) {
-			m_lTwhStyle |= ES_DISABLENOSCROLL | WS_VSCROLL;
-			EnableScrollBar(true, GetHorizontalScrollBar() != NULL);
-		}
-		else {
-			m_lTwhStyle &= ~WS_VSCROLL;
-			if (!(m_lTwhStyle & WS_HSCROLL)) m_lTwhStyle &= ~ES_DISABLENOSCROLL;
-			EnableScrollBar(false, GetHorizontalScrollBar() != NULL);
-		}
-	}
-	else if (strName == _T("autovscroll")) {
-		if (strValue == _T("true")) m_lTwhStyle |= ES_AUTOVSCROLL;
-		else if (strValue == _T("false")) m_lTwhStyle &= ~ES_AUTOVSCROLL;
-	}
-	else if (strName == _T("hscrollbar")) {
-		if (strValue == _T("true")) {
-			m_lTwhStyle |= ES_DISABLENOSCROLL | WS_HSCROLL;
-			EnableScrollBar(GetVerticalScrollBar() != NULL, true);
-		}
-		else {
-			m_lTwhStyle &= ~WS_HSCROLL;
-			if (!(m_lTwhStyle & WS_VSCROLL)) m_lTwhStyle &= ~ES_DISABLENOSCROLL;
-			EnableScrollBar(GetVerticalScrollBar() != NULL, false);
-		}
-	}
-	else if (strName == _T("autohscroll")) {
-		if (strValue == _T("true")) m_lTwhStyle |= ES_AUTOHSCROLL;
-		else if (strValue == _T("false")) m_lTwhStyle &= ~ES_AUTOHSCROLL;
-	}
-	else if (strName == _T("multiline")) {
-		if (strValue == _T("false")) m_lTwhStyle &= ~ES_MULTILINE;
-		else if (strValue == _T("true")) m_lTwhStyle |= ES_MULTILINE;
-	}
-	else if (strName == _T("readonly")) {
-		if (strValue == _T("true")) {
-			m_lTwhStyle |= ES_READONLY;
-			m_bReadOnly = true;
-		}
-		else if (strValue == _T("false")) {
-			m_lTwhStyle &= ~ES_READONLY;
-			m_bReadOnly = false;
-		}
-	}
-	else if (strName == _T("password")) {
-		if (strValue == _T("true")) {
-			m_lTwhStyle |= ES_PASSWORD;
-			m_bPassword = true;
-		}
-		else if (strValue == _T("false")) {
-			m_lTwhStyle &= ~ES_PASSWORD;
-			m_bPassword = false;
-		}
-	}
-	else if (strName == _T("number")) {
-		if (strValue == _T("true")) {
-			m_lTwhStyle |= ES_NUMBER;
-			m_bNumberOnly = true;
-		}
-		else if (strValue == _T("false")){
-			m_lTwhStyle &= ~ES_NUMBER;
-			m_bNumberOnly = false;
-		}
-	}
-	else if (strName == _T("align")) {
-		if (strValue.find(_T("left")) != std::wstring::npos) {
-			m_lTwhStyle &= ~(ES_CENTER | ES_RIGHT);
-			m_lTwhStyle |= ES_LEFT;
-		}
-		if (strValue.find(_T("hcenter")) != std::wstring::npos) {
-			m_lTwhStyle &= ~(ES_LEFT | ES_RIGHT);
-			m_lTwhStyle |= ES_CENTER;
-		}
-		if (strValue.find(_T("right")) != std::wstring::npos) {
-			m_lTwhStyle &= ~(ES_LEFT | ES_CENTER);
-			m_lTwhStyle |= ES_RIGHT;
-		}
-		if (strValue.find(_T("top")) != std::wstring::npos) {
-			m_textVerAlignType = kVerAlignTop;
-		}
-		if (strValue.find(_T("vcenter")) != std::wstring::npos) {
-			m_textVerAlignType = kVerAlignCenter;
-		}
-		if (strValue.find(_T("bottom")) != std::wstring::npos) {
-			m_textVerAlignType = kVerAlignBottom;
-		}
-	}
-	else if (strName == _T("normaltextcolor")) {
-		LPCTSTR pValue = strValue.c_str();
-		while (*pValue > _T('\0') && *pValue <= _T(' ')) pValue = ::CharNext(pValue);
-		m_sTextColor = pValue;
-		if (m_bEnabled)
-			SetTextColor(m_sTextColor);
-	}
-	else if (strName == L"disabledtextcolor") {
-		LPCTSTR pValue = strValue.c_str();
-		while (*pValue > _T('\0') && *pValue <= _T(' ')) pValue = ::CharNext(pValue);
-		m_sDisabledTextColor = pValue;
-		if (!m_bEnabled)
-			SetTextColor(m_sDisabledTextColor);
-	}
-	else if (strName == L"caretcolor") {
-		LPCTSTR pValue = strValue.c_str();
-		while (*pValue > _T('\0') && *pValue <= _T(' ')) pValue = ::CharNext(pValue);
-		SetCaretColor(pValue);
-	}
-	else if (strName == _T("promptmode")) {
-		if (strValue == _T("true"))
-			m_bAllowPrompt = true;
-	}
-	else if (strName == _T("promptcolor")) {
-		LPCTSTR pValue = strValue.c_str();
-		while (*pValue > _T('\0') && *pValue <= _T(' ')) pValue = ::CharNext(pValue);
-		m_sPromptColor = pValue;
-	}
-	else if (strName == _T("prompttext")) SetPromptText(strValue);
-	else if (strName == _T("prompttextid")) SetPromptTextId(strValue);
-	else if (strName == _T("focusedimage")) SetFocusedImage(strValue);
-	else if (strName == _T("font")) SetFont(strValue);
-	else if (strName == _T("text")) SetText(strValue.c_str());
-	else if (strName == _T("textid")) SetTextId(strValue.c_str());
-	else if (strName == _T("wanttab")) SetWantTab(strValue == _T("true"));
-	else if (strName == _T("wantreturnmsg")) SetNeedReturnMsg(strValue == _T("true"));
-	else if (strName == _T("returnmsgwantctrl")) SetReturnMsgWantCtrl(strValue == _T("true"));
-	else if (strName == _T("rich")) SetRich(strValue == _T("true"));
-	else Box::SetAttribute(strName, strValue);
+    if (strName == _T("vscrollbar")) {
+        if (strValue == _T("true")) {
+            m_lTwhStyle |= ES_DISABLENOSCROLL | WS_VSCROLL;
+            EnableScrollBar(true, GetHorizontalScrollBar() != NULL);
+        }
+        else {
+            m_lTwhStyle &= ~WS_VSCROLL;
+            if (!(m_lTwhStyle & WS_HSCROLL)) m_lTwhStyle &= ~ES_DISABLENOSCROLL;
+            EnableScrollBar(false, GetHorizontalScrollBar() != NULL);
+        }
+    }
+    else if (strName == _T("autovscroll")) {
+        if (strValue == _T("true")) m_lTwhStyle |= ES_AUTOVSCROLL;
+        else if (strValue == _T("false")) m_lTwhStyle &= ~ES_AUTOVSCROLL;
+    }
+    else if (strName == _T("hscrollbar")) {
+        if (strValue == _T("true")) {
+            m_lTwhStyle |= ES_DISABLENOSCROLL | WS_HSCROLL;
+            EnableScrollBar(GetVerticalScrollBar() != NULL, true);
+        }
+        else {
+            m_lTwhStyle &= ~WS_HSCROLL;
+            if (!(m_lTwhStyle & WS_VSCROLL)) m_lTwhStyle &= ~ES_DISABLENOSCROLL;
+            EnableScrollBar(GetVerticalScrollBar() != NULL, false);
+        }
+    }
+    else if (strName == _T("autohscroll")) {
+        if (strValue == _T("true")) m_lTwhStyle |= ES_AUTOHSCROLL;
+        else if (strValue == _T("false")) m_lTwhStyle &= ~ES_AUTOHSCROLL;
+    }
+    else if (strName == _T("multiline")) {
+        if (strValue == _T("false")) m_lTwhStyle &= ~ES_MULTILINE;
+        else if (strValue == _T("true")) m_lTwhStyle |= ES_MULTILINE;
+    }
+    else if (strName == _T("readonly")) {
+        if (strValue == _T("true")) {
+            m_lTwhStyle |= ES_READONLY;
+            m_bReadOnly = true;
+        }
+        else if (strValue == _T("false")) {
+            m_lTwhStyle &= ~ES_READONLY;
+            m_bReadOnly = false;
+        }
+    }
+    else if (strName == _T("password")) {
+        if (strValue == _T("true")) {
+            m_lTwhStyle |= ES_PASSWORD;
+            m_bPassword = true;
+        }
+        else if (strValue == _T("false")) {
+            m_lTwhStyle &= ~ES_PASSWORD;
+            m_bPassword = false;
+        }
+    }
+    else if (strName == _T("number")) {
+        if (strValue == _T("true")) {
+            m_lTwhStyle |= ES_NUMBER;
+            m_bNumberOnly = true;
+        }
+        else if (strValue == _T("false")){
+            m_lTwhStyle &= ~ES_NUMBER;
+            m_bNumberOnly = false;
+        }
+    }
+    else if (strName == _T("align")) {
+        if (strValue.find(_T("left")) != std::wstring::npos) {
+            m_lTwhStyle &= ~(ES_CENTER | ES_RIGHT);
+            m_lTwhStyle |= ES_LEFT;
+        }
+        if (strValue.find(_T("hcenter")) != std::wstring::npos) {
+            m_lTwhStyle &= ~(ES_LEFT | ES_RIGHT);
+            m_lTwhStyle |= ES_CENTER;
+        }
+        if (strValue.find(_T("right")) != std::wstring::npos) {
+            m_lTwhStyle &= ~(ES_LEFT | ES_CENTER);
+            m_lTwhStyle |= ES_RIGHT;
+        }
+        if (strValue.find(_T("top")) != std::wstring::npos) {
+            m_textVerAlignType = kVerAlignTop;
+        }
+        if (strValue.find(_T("vcenter")) != std::wstring::npos) {
+            m_textVerAlignType = kVerAlignCenter;
+        }
+        if (strValue.find(_T("bottom")) != std::wstring::npos) {
+            m_textVerAlignType = kVerAlignBottom;
+        }
+    }
+    else if (strName == _T("normaltextcolor")) {
+        LPCTSTR pValue = strValue.c_str();
+        while (*pValue > _T('\0') && *pValue <= _T(' ')) pValue = ::CharNext(pValue);
+        m_sTextColor = pValue;
+        if (m_bEnabled)
+            SetTextColor(m_sTextColor);
+    }
+    else if (strName == L"disabledtextcolor") {
+        LPCTSTR pValue = strValue.c_str();
+        while (*pValue > _T('\0') && *pValue <= _T(' ')) pValue = ::CharNext(pValue);
+        m_sDisabledTextColor = pValue;
+        if (!m_bEnabled)
+            SetTextColor(m_sDisabledTextColor);
+    }
+    else if (strName == L"caretcolor") {
+        LPCTSTR pValue = strValue.c_str();
+        while (*pValue > _T('\0') && *pValue <= _T(' ')) pValue = ::CharNext(pValue);
+        SetCaretColor(pValue);
+    }
+    else if (strName == _T("promptmode")) {
+        if (strValue == _T("true"))
+            m_bAllowPrompt = true;
+    }
+    else if (strName == _T("promptcolor")) {
+        LPCTSTR pValue = strValue.c_str();
+        while (*pValue > _T('\0') && *pValue <= _T(' ')) pValue = ::CharNext(pValue);
+        m_sPromptColor = pValue;
+    }
+    else if (strName == _T("prompttext")) SetPromptText(strValue);
+    else if (strName == _T("prompttextid")) SetPromptTextId(strValue);
+    else if (strName == _T("focusedimage")) SetFocusedImage(strValue);
+    else if (strName == _T("font")) SetFont(strValue);
+    else if (strName == _T("text")) SetText(strValue.c_str());
+    else if (strName == _T("textid")) SetTextId(strValue.c_str());
+    else if (strName == _T("wanttab")) SetWantTab(strValue == _T("true"));
+    else if (strName == _T("wantreturnmsg")) SetNeedReturnMsg(strValue == _T("true"));
+    else if (strName == _T("returnmsgwantctrl")) SetReturnMsgWantCtrl(strValue == _T("true"));
+    else if (strName == _T("rich")) SetRich(strValue == _T("true"));
+    else Box::SetAttribute(strName, strValue);
 }
 
 BOOL RichEdit::CreateCaret(INT xWidth, INT yHeight)
 {
-	m_iCaretWidth = xWidth;
-	m_iCaretHeight = yHeight;
-	return true;
+    m_iCaretWidth = xWidth;
+    m_iCaretHeight = yHeight;
+    return true;
 }
 
 BOOL RichEdit::ShowCaret(BOOL fShow)
 {
-	if (fShow) {
-		m_bIsCaretVisiable = true;
-		m_drawCaretFlag.Cancel();
-		std::function<void()> closure = nbase::Bind(&RichEdit::ChangeCaretVisiable, this);
-		TimerManager::GetInstance()->AddCancelableTimer(m_drawCaretFlag.GetWeakFlag(), closure, 500, TimerManager::REPEAT_FOREVER);
-	}
-	else {
-		m_bIsCaretVisiable = false;
-		m_drawCaretFlag.Cancel();
-	}
+    if (fShow) {
+        m_bIsCaretVisiable = true;
+        m_drawCaretFlag.Cancel();
+        std::function<void()> closure = nbase::Bind(&RichEdit::ChangeCaretVisiable, this);
+        TimerManager::GetInstance()->AddCancelableTimer(m_drawCaretFlag.GetWeakFlag(), closure, 500, TimerManager::REPEAT_FOREVER);
+    }
+    else {
+        m_bIsCaretVisiable = false;
+        m_drawCaretFlag.Cancel();
+    }
 
-	Invalidate();
-	return true;
+    Invalidate();
+    return true;
 }
 
 void RichEdit::SetCaretColor(const std::wstring& dwColor)
 {
-	m_sCaretColor = dwColor;
+    m_sCaretColor = dwColor;
 }
 
 std::wstring RichEdit::GetCaretColor()
 {
-	return m_sCaretColor;
+    return m_sCaretColor;
 }
 
 RECT RichEdit::GetCaretRect()
 {
-	RECT rc = { m_iCaretPosX, m_iCaretPosY, m_iCaretPosX + m_iCaretWidth, m_iCaretPosY + m_iCaretHeight };
-	return rc;
+    RECT rc = { m_iCaretPosX, m_iCaretPosY, m_iCaretPosX + m_iCaretWidth, m_iCaretPosY + m_iCaretHeight };
+    return rc;
 }
 
 BOOL RichEdit::SetCaretPos(INT x, INT y)
 {
-	m_iCaretPosX = x;
-	m_iCaretPosY = y;
-	ShowCaret(GetSelText().empty());
+    m_iCaretPosX = x;
+    m_iCaretPosY = y;
+    ShowCaret(GetSelText().empty());
 
-	return true;
+    return true;
 }
 
 void RichEdit::ChangeCaretVisiable()
 {
-	m_bIsCaretVisiable = !m_bIsCaretVisiable;
-	Invalidate();
+    m_bIsCaretVisiable = !m_bIsCaretVisiable;
+    Invalidate();
 }
 
 void RichEdit::PaintCaret(IRenderContext* pRender, const UiRect& rcPaint)
 {
-	if (m_bReadOnly && m_bNoCaretReadonly)
-		return;
+    if (m_bReadOnly && m_bNoCaretReadonly)
+        return;
 
-	if (m_bIsCaretVisiable && !m_bIsComposition) {
-		UiRect rect(m_iCaretPosX, m_iCaretPosY, m_iCaretPosX, m_iCaretPosY + m_iCaretHeight);
-		DWORD dwClrColor = 0xff000000;
+    if (m_bIsCaretVisiable && !m_bIsComposition) {
+        UiRect rect(m_iCaretPosX, m_iCaretPosY, m_iCaretPosX, m_iCaretPosY + m_iCaretHeight);
+        DWORD dwClrColor = 0xff000000;
 
-		if (!m_sCaretColor.empty())
-			dwClrColor = GlobalManager::GetTextColor(m_sCaretColor);
+        if (!m_sCaretColor.empty())
+            dwClrColor = GlobalManager::GetTextColor(m_sCaretColor);
 
-		pRender->DrawLine(rect, m_iCaretWidth, dwClrColor);
-	}
+        pRender->DrawLine(rect, m_iCaretWidth, dwClrColor);
+    }
 }
 
 void RichEdit::SetPromptMode(bool bPrompt)
 {
-	if(bPrompt == m_bAllowPrompt)
-		return;
-	m_bAllowPrompt = bPrompt;
-	Invalidate();
+    if(bPrompt == m_bAllowPrompt)
+        return;
+    m_bAllowPrompt = bPrompt;
+    Invalidate();
 }
 
 std::wstring RichEdit::GetPromptText() const
 {
-	std::wstring strText = m_sPromptText;
-	if (strText.empty() && !m_sPromptTextId.empty()) {
-		strText = MutiLanSupport::GetInstance()->GetStringViaID(m_sPromptTextId);
-	}
+    std::wstring strText = m_sPromptText;
+    if (strText.empty() && !m_sPromptTextId.empty()) {
+        strText = MutiLanSupport::GetInstance()->GetStringViaID(m_sPromptTextId);
+    }
 
-	return strText;
+    return strText;
 }
 
 std::string RichEdit::GetUTF8PromptText() const
 {
-	std::string strOut;
-	StringHelper::UnicodeToMBCS(GetPromptText(), strOut, CP_UTF8);
-	return strOut;
+    std::string strOut;
+    StringHelper::UnicodeToMBCS(GetPromptText(), strOut, CP_UTF8);
+    return strOut;
 }
 
 void RichEdit::SetPromptText(const std::wstring& strText)
 {
-	if (m_sPromptText == strText) return;
-	m_sPromptText = strText;
+    if (m_sPromptText == strText) return;
+    m_sPromptText = strText;
 
-	Invalidate();
+    Invalidate();
 }
 
 void RichEdit::SetUTF8PromptText(const std::string& strText)
 {
-	std::wstring strOut;
-	StringHelper::MBCSToUnicode(strText, strOut, CP_UTF8);
-	SetPromptText(strOut);
+    std::wstring strOut;
+    StringHelper::MBCSToUnicode(strText, strOut, CP_UTF8);
+    SetPromptText(strOut);
 }
 
 void RichEdit::SetPromptTextId(const std::wstring& strTextId)
 {
-	if (m_sPromptTextId == strTextId) return;
-	m_sPromptTextId = strTextId;
+    if (m_sPromptTextId == strTextId) return;
+    m_sPromptTextId = strTextId;
 
-	Invalidate();
+    Invalidate();
 }
 
 void RichEdit::SetUTF8PromptTextId(const std::string& strTextId)
 {
-	std::wstring strOut;
-	StringHelper::MBCSToUnicode(strTextId, strOut, CP_UTF8);
-	SetPromptTextId(strOut);
+    std::wstring strOut;
+    StringHelper::MBCSToUnicode(strTextId, strOut, CP_UTF8);
+    SetPromptTextId(strOut);
 }
 
 void RichEdit::PaintPromptText(IRenderContext* pRender)
 {
-	long len = GetTextLength(GTL_DEFAULT);
-	if (len != 0)
-		return;
+    long len = GetTextLength(GTL_DEFAULT);
+    if (len != 0)
+        return;
 
-	if (!m_pTwh)
-		return;
+    if (!m_pTwh)
+        return;
 
-	std::wstring strPrompt = GetPromptText();
-	if (strPrompt.empty() || m_sPromptColor.empty())
-		return;
+    std::wstring strPrompt = GetPromptText();
+    if (strPrompt.empty() || m_sPromptColor.empty())
+        return;
 
-	UiRect rc;
-	m_pTwh->GetControlRect(&rc);
+    UiRect rc;
+    m_pTwh->GetControlRect(&rc);
 
-	DWORD dwClrColor = GlobalManager::GetTextColor(m_sPromptColor);
-	UINT dwStyle = DT_NOCLIP;
-	pRender->DrawText(rc, strPrompt, dwClrColor, m_sFontId, dwStyle);
+    DWORD dwClrColor = GlobalManager::GetTextColor(m_sPromptColor);
+    UINT dwStyle = DT_NOCLIP;
+    pRender->DrawText(rc, strPrompt, dwClrColor, m_sFontId, dwStyle);
 }
 
 std::wstring RichEdit::GetFocusedImage()
 {
-	return m_sFocusedImage.imageAttribute.simageString;
+    return m_sFocusedImage.imageAttribute.simageString;
 }
 
 void RichEdit::SetFocusedImage( const std::wstring& strImage )
 {
-	m_sFocusedImage.SetImageString(strImage);
-	Invalidate();
+    m_sFocusedImage.SetImageString(strImage);
+    Invalidate();
 }
 
 void RichEdit::PaintStatusImage(IRenderContext* pRender)
 {
-	if( IsReadOnly() )
-		return;
+    if( IsReadOnly() )
+        return;
 
-	if(IsFocused()) {
-		DrawImage(pRender, m_sFocusedImage);
-		PaintPromptText(pRender);
-		return;
-	}
+    if(IsFocused()) {
+        DrawImage(pRender, m_sFocusedImage);
+        PaintPromptText(pRender);
+        return;
+    }
 
-	__super::PaintStatusImage(pRender);
-	PaintPromptText(pRender);
+    __super::PaintStatusImage(pRender);
+    PaintPromptText(pRender);
 }
 
 void RichEdit::SetNoSelOnKillFocus(bool bNoSel)
 {
-	m_bNoSelOnKillFocus = bNoSel;
+    m_bNoSelOnKillFocus = bNoSel;
 }
 
 void RichEdit::SetSelAllOnFocus(bool bSelAll)
 {
-	m_bSelAllOnFocus = bSelAll;
+    m_bSelAllOnFocus = bSelAll;
 }
 
 void RichEdit::SetNoCaretReadonly()
 {
-	m_bNoCaretReadonly = true;
+    m_bNoCaretReadonly = true;
 }
 
 void RichEdit::AddColorText(const std::wstring &str, const std::wstring &color)
 {
-	if( !m_bRich || str.empty() || color.empty() ) {
-		ASSERT(FALSE);
-		return;
-	}
-	DWORD dwColor = GlobalManager::GetTextColor(color);
+    if( !m_bRich || str.empty() || color.empty() ) {
+        ASSERT(FALSE);
+        return;
+    }
+    DWORD dwColor = GlobalManager::GetTextColor(color);
 
-	CHARFORMAT2W cf;
-	ZeroMemory(&cf, sizeof(cf));
-	cf.cbSize = sizeof(CHARFORMAT2W);
-	cf.dwMask = CFM_COLOR;
-	cf.dwEffects = 0;
-	cf.crTextColor = RGB(GetBValue(dwColor), GetGValue(dwColor), GetRValue(dwColor));
+    CHARFORMAT2W cf;
+    ZeroMemory(&cf, sizeof(cf));
+    cf.cbSize = sizeof(CHARFORMAT2W);
+    cf.dwMask = CFM_COLOR;
+    cf.dwEffects = 0;
+    cf.crTextColor = RGB(GetBValue(dwColor), GetGValue(dwColor), GetRValue(dwColor));
 
-	this->ReplaceSel(str, FALSE);
-	int len = GetTextLength();
-	this->SetSel(len - (int)str.size(), len);
-	this->SetSelectionCharFormat(cf);
+    this->ReplaceSel(str, FALSE);
+    int len = GetTextLength();
+    this->SetSel(len - (int)str.size(), len);
+    this->SetSelectionCharFormat(cf);
 
-	this->SetSelNone();
-	GetDefaultCharFormat(cf);
-	SetSelectionCharFormat(cf);
+    this->SetSelNone();
+    GetDefaultCharFormat(cf);
+    SetSelectionCharFormat(cf);
 }
 
 void RichEdit::AddLinkColorText(const std::wstring &str, const std::wstring &color, const std::wstring &linkInfo)
 {
-	if( !m_bRich || str.empty() || color.empty() ) {
-		ASSERT(FALSE);
-		return;
-	}
-	DWORD dwColor = GlobalManager::GetTextColor(color);
+    if( !m_bRich || str.empty() || color.empty() ) {
+        ASSERT(FALSE);
+        return;
+    }
+    DWORD dwColor = GlobalManager::GetTextColor(color);
 
-	CHARFORMAT2W cf;
-	ZeroMemory(&cf, sizeof(cf));
-	cf.cbSize = sizeof(CHARFORMAT2W);
-	cf.dwMask = CFM_COLOR;
-	cf.crTextColor = RGB(GetBValue(dwColor), GetGValue(dwColor), GetRValue(dwColor));
+    CHARFORMAT2W cf;
+    ZeroMemory(&cf, sizeof(cf));
+    cf.cbSize = sizeof(CHARFORMAT2W);
+    cf.dwMask = CFM_COLOR;
+    cf.crTextColor = RGB(GetBValue(dwColor), GetGValue(dwColor), GetRValue(dwColor));
 
-	this->ReplaceSel(str, FALSE);
-	int len = GetTextLength();
-	this->SetSel(len - (int)str.size(), len);
-	this->SetSelectionCharFormat(cf);
-	LinkInfo info;
-	info.info = linkInfo;
-	TxSendMessage(EM_EXGETSEL, 0, (LPARAM)&(info.cr), NULL);
-	m_linkInfo.push_back(info);
+    this->ReplaceSel(str, FALSE);
+    int len = GetTextLength();
+    this->SetSel(len - (int)str.size(), len);
+    this->SetSelectionCharFormat(cf);
+    LinkInfo info;
+    info.info = linkInfo;
+    TxSendMessage(EM_EXGETSEL, 0, (LPARAM)&(info.cr), NULL);
+    m_linkInfo.push_back(info);
 
-	this->SetSelNone();
-	GetDefaultCharFormat(cf);
-	SetSelectionCharFormat(cf);
+    this->SetSelNone();
+    GetDefaultCharFormat(cf);
+    SetSelectionCharFormat(cf);
 }
 void  RichEdit::AddLinkColorTextEx(const std::wstring& str, const std::wstring &color, const std::wstring &linkInfo, const std::wstring& strFontId)
 {
-	if (!m_bRich || str.empty() || color.empty()) {
-		ASSERT(FALSE);
-		return;
-	}
-	
-	std::string link;
-	std::string text;
-	std::string font_face;
-	StringHelper::UnicodeToMBCS(linkInfo, link);
-	StringHelper::UnicodeToMBCS(str, text);
-	auto hFont = GlobalManager::GetFont(strFontId);
-	if (hFont == NULL)
-		hFont = GlobalManager::GetFont(m_sFontId);
-	if (hFont == NULL)
-		hFont = GlobalManager::GetFont(L"");
-	LOGFONT lf;
-	::GetObject(hFont, sizeof(LOGFONT), &lf);
-	StringHelper::UnicodeToMBCS(lf.lfFaceName, font_face);
-	DWORD dwTextColor = GlobalManager::GetTextColor(color);
-	static std::string font_format = "{\\fonttbl{\\f0\\fnil\\fcharset%d %s;}}";
-	static std::string color_format = "{\\colortbl ;\\red%d\\green%d\\blue%d;}";
-	static std::string link_format = "{\\rtf1%s%s\\f0\\fs%d{\\field{\\*\\fldinst{HYPERLINK \"%s\"}}{\\fldrslt{\\cf1 %s}}}}";
-	char sfont[255];
-	sprintf(sfont, font_format.c_str(), lf.lfCharSet, font_face.c_str());
-	char scolor[255];
-	sprintf(scolor, color_format.c_str(), GetBValue(dwTextColor), GetGValue(dwTextColor), GetRValue(dwTextColor));
-	char slinke[1024];
-	sprintf(slinke, link_format.c_str(), sfont, scolor, ((int)(-lf.lfHeight *1.5))/2*2, link.c_str(), text.c_str());
-	std::wstring temp;
-	StringHelper::MBCSToUnicode(slinke, temp);
-	SETTEXTEX st;
-	st.codepage = ((UINT32)~((UINT32)0));
-	st.flags = ST_SELECTION | ST_KEEPUNDO;
-	TxSendMessage(EM_SETTEXTEX, (WPARAM)&st, (LPARAM)(LPCTSTR)slinke, NULL);
-	return;
+    if (!m_bRich || str.empty() || color.empty()) {
+        ASSERT(FALSE);
+        return;
+    }
+    
+    std::string link;
+    std::string text;
+    std::string font_face;
+    StringHelper::UnicodeToMBCS(linkInfo, link);
+    StringHelper::UnicodeToMBCS(str, text);
+    auto hFont = GlobalManager::GetFont(strFontId);
+    if (hFont == NULL)
+        hFont = GlobalManager::GetFont(m_sFontId);
+    if (hFont == NULL)
+        hFont = GlobalManager::GetFont(L"");
+    LOGFONT lf;
+    ::GetObject(hFont, sizeof(LOGFONT), &lf);
+    StringHelper::UnicodeToMBCS(lf.lfFaceName, font_face);
+    DWORD dwTextColor = GlobalManager::GetTextColor(color);
+    static std::string font_format = "{\\fonttbl{\\f0\\fnil\\fcharset%d %s;}}";
+    static std::string color_format = "{\\colortbl ;\\red%d\\green%d\\blue%d;}";
+    static std::string link_format = "{\\rtf1%s%s\\f0\\fs%d{\\field{\\*\\fldinst{HYPERLINK \"%s\"}}{\\fldrslt{\\cf1 %s}}}}";
+    char sfont[255];
+    sprintf(sfont, font_format.c_str(), lf.lfCharSet, font_face.c_str());
+    char scolor[255];
+    sprintf(scolor, color_format.c_str(), GetBValue(dwTextColor), GetGValue(dwTextColor), GetRValue(dwTextColor));
+    char slinke[1024];
+    sprintf(slinke, link_format.c_str(), sfont, scolor, ((int)(-lf.lfHeight *1.5))/2*2, link.c_str(), text.c_str());
+    std::wstring temp;
+    StringHelper::MBCSToUnicode(slinke, temp);
+    SETTEXTEX st;
+    st.codepage = ((UINT32)~((UINT32)0));
+    st.flags = ST_SELECTION | ST_KEEPUNDO;
+    TxSendMessage(EM_SETTEXTEX, (WPARAM)&st, (LPARAM)(LPCTSTR)slinke, NULL);
+    return;
 }
 void RichEdit::AddLinkInfo(const CHARRANGE cr, const std::wstring &linkInfo)
 {
-	LinkInfo info;
-	info.info = linkInfo;
-	info.cr = cr;
-	m_linkInfo.push_back(info);
+    LinkInfo info;
+    info.info = linkInfo;
+    info.cr = cr;
+    m_linkInfo.push_back(info);
 }
 
 //根据point来hittest自定义link的数据，返回true表示在link上，info是link的自定义属性
 bool RichEdit::HittestCustomLink(CPoint pt, std::wstring& info)
 {
-	bool bLink = false;
-	info.clear();
-	if (m_linkInfo.size() > 0) {
-		pt.Offset(GetScrollOffset());
-		int nCharIndex = CharFromPos(pt);
-		for (auto it = m_linkInfo.begin(); it != m_linkInfo.end(); it++)
-		{
-			if ((*it).cr.cpMin <= nCharIndex && (*it).cr.cpMax > nCharIndex) {
-				info = (*it).info;
-				bLink = true;
-				break;
-			}
-		}
-	}
+    bool bLink = false;
+    info.clear();
+    if (m_linkInfo.size() > 0) {
+        pt.Offset(GetScrollOffset());
+        int nCharIndex = CharFromPos(pt);
+        for (auto it = m_linkInfo.begin(); it != m_linkInfo.end(); it++)
+        {
+            if ((*it).cr.cpMin <= nCharIndex && (*it).cr.cpMax > nCharIndex) {
+                info = (*it).info;
+                bLink = true;
+                break;
+            }
+        }
+    }
 
-	return bLink;
+    return bLink;
 }
 
 void RichEdit::ClearImageCache()
 {
-	__super::ClearImageCache();
-	m_sFocusedImage.ClearCache();
+    __super::ClearImageCache();
+    m_sFocusedImage.ClearCache();
 }
 
 //----------------下面函数用作辅助 字节数限制
 bool IsAsciiChar(const wchar_t ch)
 {
-	return (ch <= 0x7e && ch >= 0x20);
+    return (ch <= 0x7e && ch >= 0x20);
 }
 
 int GetAsciiCharNumber(const std::wstring &str)
 {
-	int len = (int)str.size(), sum = 0;
-	for( int i = 0; i < len; i++ )
-	{
-		if( IsAsciiChar(str[i]) )
-			sum += 1;
-		else
-			sum += 2;
-	}
-	return sum;
+    int len = (int)str.size(), sum = 0;
+    for( int i = 0; i < len; i++ )
+    {
+        if( IsAsciiChar(str[i]) )
+            sum += 1;
+        else
+            sum += 2;
+    }
+    return sum;
 }
 
 void LimitAsciiNumber(std::wstring &src, int limit)
 {
-	int len = (int)src.size(), sum = 0;
-	for( int i = 0; i < len; i++ )
-	{
-		if( IsAsciiChar(src[i]) )
-			sum += 1;
-		else
-			sum += 2;
-		if( sum > limit ) {
-			src.erase(i);
-			break;
-		}
-	}
+    int len = (int)src.size(), sum = 0;
+    for( int i = 0; i < len; i++ )
+    {
+        if( IsAsciiChar(src[i]) )
+            sum += 1;
+        else
+            sum += 2;
+        if( sum > limit ) {
+            src.erase(i);
+            break;
+        }
+    }
 }
 
 void GetClipboardText( std::wstring &out )
 {
-	out.clear();
+    out.clear();
 
-	BOOL ret = ::OpenClipboard(NULL);
-	if(ret) {
-		if(::IsClipboardFormatAvailable(CF_UNICODETEXT)) {
-			HANDLE h = ::GetClipboardData(CF_UNICODETEXT);
-			if(h != INVALID_HANDLE_VALUE) {
-				wchar_t* buf = (wchar_t*)::GlobalLock(h);
-				if(buf != NULL)	{
-					std::wstring str(buf, GlobalSize(h)/sizeof(wchar_t));
-					out = str;
-					::GlobalUnlock(h);
-				}
-			}
-		}
-		else if(::IsClipboardFormatAvailable(CF_TEXT)) {
-			HANDLE h = ::GetClipboardData(CF_TEXT);
-			if(h != INVALID_HANDLE_VALUE) {
-				char* buf = (char*)::GlobalLock(h);
-				if(buf != NULL)	{
-					std::string str(buf, GlobalSize(h));
-					StringHelper::MBCSToUnicode(str, out);
+    BOOL ret = ::OpenClipboard(NULL);
+    if(ret) {
+        if(::IsClipboardFormatAvailable(CF_UNICODETEXT)) {
+            HANDLE h = ::GetClipboardData(CF_UNICODETEXT);
+            if(h != INVALID_HANDLE_VALUE) {
+                wchar_t* buf = (wchar_t*)::GlobalLock(h);
+                if(buf != NULL)    {
+                    std::wstring str(buf, GlobalSize(h)/sizeof(wchar_t));
+                    out = str;
+                    ::GlobalUnlock(h);
+                }
+            }
+        }
+        else if(::IsClipboardFormatAvailable(CF_TEXT)) {
+            HANDLE h = ::GetClipboardData(CF_TEXT);
+            if(h != INVALID_HANDLE_VALUE) {
+                char* buf = (char*)::GlobalLock(h);
+                if(buf != NULL)    {
+                    std::string str(buf, GlobalSize(h));
+                    StringHelper::MBCSToUnicode(str, out);
 
-					::GlobalUnlock(h);
-				}
-			}
-		}
-		::CloseClipboard();
-	}
+                    ::GlobalUnlock(h);
+                }
+            }
+        }
+        ::CloseClipboard();
+    }
 }
 
 void SetClipBoardText(const std::wstring &str)
 {
-	if (!::OpenClipboard(NULL))
-		return;
+    if (!::OpenClipboard(NULL))
+        return;
 
-	if (!::EmptyClipboard()) {
-		::CloseClipboard();
-		return;
-	}
+    if (!::EmptyClipboard()) {
+        ::CloseClipboard();
+        return;
+    }
 
-	size_t len = str.length();
-	HGLOBAL hMem = ::GlobalAlloc(GMEM_MOVEABLE, (len + 1) * sizeof(wchar_t)); //分配全局内存  
-	if (!hMem) {
-		::CloseClipboard();
-		return;
-	}
+    size_t len = str.length();
+    HGLOBAL hMem = ::GlobalAlloc(GMEM_MOVEABLE, (len + 1) * sizeof(wchar_t)); //分配全局内存  
+    if (!hMem) {
+        ::CloseClipboard();
+        return;
+    }
 
-	wchar_t* lpStr = (wchar_t*)::GlobalLock(hMem); //锁住内存区 
-	::memcpy(lpStr, str.c_str(), len * sizeof(wchar_t)); //把数据拷贝考全局内存中
-	lpStr[len] = wchar_t(0); //字符串末尾设为'\0'
-	::GlobalUnlock(hMem); //释放锁 
+    wchar_t* lpStr = (wchar_t*)::GlobalLock(hMem); //锁住内存区 
+    ::memcpy(lpStr, str.c_str(), len * sizeof(wchar_t)); //把数据拷贝考全局内存中
+    lpStr[len] = wchar_t(0); //字符串末尾设为'\0'
+    ::GlobalUnlock(hMem); //释放锁 
 
-	::SetClipboardData(CF_UNICODETEXT, hMem); //把内存中的数据放到剪切板上
-	::CloseClipboard(); //关闭剪切板	
+    ::SetClipboardData(CF_UNICODETEXT, hMem); //把内存中的数据放到剪切板上
+    ::CloseClipboard(); //关闭剪切板    
 }
 
 } // namespace ui

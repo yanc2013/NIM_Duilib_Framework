@@ -4,22 +4,22 @@
 class Item : public ui::ListContainerElement
 {
 public:
-	Item();
-	~Item();
+    Item();
+    ~Item();
 
-	// 提供外部调用来初始化 item 数据
-	void InitSubControls(const std::wstring& img, const std::wstring& title, int nDataIndex);
+    // 提供外部调用来初始化 item 数据
+    void InitSubControls(const std::wstring& img, const std::wstring& title, int nDataIndex);
 private:
-	bool OnRemove(ui::EventArgs* args);
+    bool OnRemove(ui::EventArgs* args);
 
 private:
-	ui::ListBox*	list_box_;
+    ui::ListBox*    list_box_;
 
-	ui::Control*	control_img_;
-	ui::Label*		label_title_;
-	ui::Progress*	progress_;
-	ui::Button*		btn_del_;
-	int64_t         t_time;
-	int m_nDataIndex;
+    ui::Control*    control_img_;
+    ui::Label*        label_title_;
+    ui::Progress*    progress_;
+    ui::Button*        btn_del_;
+    int64_t         t_time;
+    int m_nDataIndex;
 };
 
